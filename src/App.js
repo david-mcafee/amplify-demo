@@ -1,9 +1,10 @@
 /* src/App.js */
 import React, { useEffect, useState } from "react";
-import Amplify, { API, graphqlOperation } from "aws-amplify";
+import Amplify, { Analytics, API, graphqlOperation } from "aws-amplify";
 import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import { createTodo } from "./graphql/mutations";
 import { listTodos } from "./graphql/queries";
+import { Button } from "semantic-ui-react";
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
@@ -20,6 +21,10 @@ const App = () => {
 
   function setInput(key, value) {
     setFormState({ ...formState, [key]: value });
+  }
+
+  function testAnalyticsButton() {
+    Analytics.record({ name: "test button click" });
   }
 
   async function fetchTodos() {
@@ -47,6 +52,7 @@ const App = () => {
   return (
     <div style={styles.container}>
       <h2>Amplify Todos</h2>
+      <Button onClick={testAnalyticsButton}>Test Analytics</Button>
       <input
         onChange={(event) => setInput("name", event.target.value)}
         style={styles.input}
@@ -101,4 +107,4 @@ const styles = {
   },
 };
 
-export default withAuthenticator(App);
+export default withAuthenticator(App, { includeGreetings: true });
