@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
-import { createTodo } from "./graphql/mutations";
+import { createTodo, deleteTodo } from "./graphql/mutations";
 import { listTodos } from "./graphql/queries";
+import {
+  Button,
+  Input,
+  List,
+  ListItem,
+  ListContent,
+  ListHeader,
+  ListDescription,
+} from "semantic-ui-react";
+import { v4 as uuidv4 } from "uuid";
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
@@ -33,12 +43,40 @@ const Todo = () => {
   async function addTodo() {
     try {
       if (!formState.name || !formState.description) return;
+
       const todo = { ...formState };
-      setTodos([...todos, todo]);
       setFormState(initialState);
-      await API.graphql(graphqlOperation(createTodo, { input: todo }));
+      setTodos([...todos, todo]);
+      // Generate id so that you can optimistically update state, while still allowing
+      // for update and delete, since those require ids. Alternative is to fetch
+      // on each operation, but that's slow.
+      await API.graphql(
+        graphqlOperation(createTodo, { input: { id: uuidv4(), ...todo } })
+      );
     } catch (err) {
+      fetchTodos();
       console.log("error creating todo:", err);
+    }
+  }
+
+  // TODO:
+  // /* update a todo */
+  // await API.graphql(
+  //   graphqlOperation(updateTodo, {
+  //     input: { id: todoId, name: "Updated todo info" },
+  //   })
+  // );
+
+  async function removeTodo(todoId) {
+    try {
+      /* delete a todo */
+      setTodos(todos.filter((todo) => todo.id !== todoId));
+      await API.graphql(
+        graphqlOperation(deleteTodo, { input: { id: todoId } })
+      );
+    } catch (err) {
+      fetchTodos();
+      console.log("error deleting todo:", err);
     }
   }
 
@@ -46,27 +84,34 @@ const Todo = () => {
     <div style={styles.parentContainer}>
       <div style={styles.container}>
         <h2>Amplify Todos</h2>
-        <input
+        <Input
           onChange={(event) => setInput("name", event.target.value)}
-          style={styles.input}
           value={formState.name}
           placeholder="Name"
         />
-        <input
+        <Input
           onChange={(event) => setInput("description", event.target.value)}
-          style={styles.input}
           value={formState.description}
           placeholder="Description"
         />
-        <button style={styles.button} onClick={addTodo}>
-          Create Todo
-        </button>
-        {todos.map((todo, index) => (
-          <div key={todo.id ? todo.id : index} style={styles.todo}>
-            <p style={styles.todoName}>{todo.name}</p>
-            <p style={styles.todoDescription}>{todo.description}</p>
-          </div>
-        ))}
+        <Button onClick={addTodo}>Create Todo</Button>
+        <List as="ul">
+          {todos.map((todo, index) => (
+            <ListItem key={todo.id ? todo.id : index}>
+              <ListContent>
+                <ListHeader>
+                  <p>{todo.name}</p>
+                </ListHeader>
+                <ListDescription>
+                  <p>{todo.description}</p>
+                </ListDescription>
+                <Button color={"red"} onClick={() => removeTodo(todo.id)}>
+                  Delete
+                </Button>
+              </ListContent>
+            </ListItem>
+          ))}
+        </List>
       </div>
     </div>
   );
@@ -88,23 +133,6 @@ const styles = {
     flexDirection: "column",
     justifyContent: "center",
     padding: 20,
-  },
-  todo: { marginBottom: 15 },
-  input: {
-    border: "none",
-    backgroundColor: "#ddd",
-    marginBottom: 10,
-    padding: 8,
-    fontSize: 18,
-  },
-  todoName: { fontSize: 20, fontWeight: "bold" },
-  todoDescription: { marginBottom: 0 },
-  button: {
-    backgroundColor: "black",
-    color: "white",
-    outline: "none",
-    fontSize: 18,
-    padding: "12px 0px",
   },
 };
 

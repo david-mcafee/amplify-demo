@@ -23,8 +23,8 @@ const Chatbot = () => {
   return (
     <AmplifyChatbot
       botName="ScheduleAppointment_dev"
-      botTitle="My ChatBot"
-      welcomeMessage="Hello, how can I help you?"
+      botTitle="Appointment booking"
+      welcomeMessage="Hello, would you like to schedule an appointment?"
       conversationModeOn
       textEnabled
       voiceEnabled
