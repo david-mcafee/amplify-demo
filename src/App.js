@@ -24,7 +24,10 @@ const App = () => {
   }
 
   function testAnalyticsButton() {
-    Analytics.record({ name: "test button click", clickNumber: 1 });
+    Analytics.record({
+      name: "test button click",
+      metrics: { clickNumber: 1 },
+    });
   }
 
   async function fetchTodos() {
