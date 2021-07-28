@@ -4,7 +4,7 @@ import Amplify, { Analytics, API, graphqlOperation } from "aws-amplify";
 import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import { createTodo } from "./graphql/mutations";
 import { listTodos } from "./graphql/queries";
-import { Button } from "semantic-ui-react";
+import { Button, Menu } from "semantic-ui-react";
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
@@ -50,31 +50,40 @@ const App = () => {
   }
 
   return (
-    <div style={styles.container}>
-      <h2>Amplify Todos</h2>
-      <input
-        onChange={(event) => setInput("name", event.target.value)}
-        style={styles.input}
-        value={formState.name}
-        placeholder="Name"
-      />
-      <input
-        onChange={(event) => setInput("description", event.target.value)}
-        style={styles.input}
-        value={formState.description}
-        placeholder="Description"
-      />
-      <button style={styles.button} onClick={addTodo}>
-        Create Todo
-      </button>
-      {todos.map((todo, index) => (
-        <div key={todo.id ? todo.id : index} style={styles.todo}>
-          <p style={styles.todoName}>{todo.name}</p>
-          <p style={styles.todoDescription}>{todo.description}</p>
-        </div>
-      ))}
-      <Button onClick={testAnalyticsButton}>Test Analytics</Button>
-      <AmplifySignOut />
+    <div style={styles.parentContainer}>
+      <Menu>
+        <Menu.Item header>Amplify Demo!</Menu.Item>
+        <Menu.Item>
+          <Button onClick={testAnalyticsButton}>Test Analytics</Button>
+        </Menu.Item>
+        <Menu.Item position="right">
+          <AmplifySignOut />
+        </Menu.Item>
+      </Menu>
+      <div style={styles.container}>
+        <h2>Amplify Todos</h2>
+        <input
+          onChange={(event) => setInput("name", event.target.value)}
+          style={styles.input}
+          value={formState.name}
+          placeholder="Name"
+        />
+        <input
+          onChange={(event) => setInput("description", event.target.value)}
+          style={styles.input}
+          value={formState.description}
+          placeholder="Description"
+        />
+        <button style={styles.button} onClick={addTodo}>
+          Create Todo
+        </button>
+        {todos.map((todo, index) => (
+          <div key={todo.id ? todo.id : index} style={styles.todo}>
+            <p style={styles.todoName}>{todo.name}</p>
+            <p style={styles.todoDescription}>{todo.description}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -82,6 +91,14 @@ const App = () => {
 const styles = {
   container: {
     width: 400,
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    padding: 20,
+  },
+  parentContainer: {
+    width: "100%",
     margin: "0 auto",
     display: "flex",
     flexDirection: "column",
