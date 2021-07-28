@@ -24,7 +24,7 @@ const App = () => {
   }
 
   function testAnalyticsButton() {
-    Analytics.record({ name: "test button click" });
+    Analytics.record({ name: "test button click", clickNumber: 1 });
   }
 
   async function fetchTodos() {
@@ -52,7 +52,6 @@ const App = () => {
   return (
     <div style={styles.container}>
       <h2>Amplify Todos</h2>
-      <Button onClick={testAnalyticsButton}>Test Analytics</Button>
       <input
         onChange={(event) => setInput("name", event.target.value)}
         style={styles.input}
@@ -74,6 +73,7 @@ const App = () => {
           <p style={styles.todoDescription}>{todo.description}</p>
         </div>
       ))}
+      <Button onClick={testAnalyticsButton}>Test Analytics</Button>
       <AmplifySignOut />
     </div>
   );
