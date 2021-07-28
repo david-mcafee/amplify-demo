@@ -1,0 +1,462 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Lex chatbot creation from Amplify CLI",
+  "Parameters": {
+    "authRoleName": {
+      "Type": "String"
+    },
+    "unauthRoleName": {
+      "Type": "String"
+    },
+    "authRoleArn": {
+      "Type": "String"
+    },
+    "env": {
+      "Type": "String"
+    },
+    "deploymentBucketName": {
+      "Type": "String"
+    },
+    "s3Key": {
+      "Type": "String"
+    }
+  },
+  "Mappings": {
+    "RegionMapping": {
+      "us-east-1": {
+        "lexRegion": "us-east-1"
+      },
+      "us-east-2": {
+        "lexRegion": "us-east-1"
+      },
+      "sa-east-1": {
+        "lexRegion": "us-east-1"
+      },
+      "ca-central-1": {
+        "lexRegion": "us-east-1"
+      },
+      "us-west-1": {
+        "lexRegion": "us-west-2"
+      },
+      "us-west-2": {
+        "lexRegion": "us-west-2"
+      },
+      "cn-north-1": {
+        "lexRegion": "us-west-2"
+      },
+      "cn-northwest-1": {
+        "lexRegion": "us-west-2"
+      },
+      "ap-south-1": {
+        "lexRegion": "us-west-2"
+      },
+      "ap-northeast-3": {
+        "lexRegion": "us-west-2"
+      },
+      "ap-northeast-2": {
+        "lexRegion": "us-west-2"
+      },
+      "ap-southeast-1": {
+        "lexRegion": "ap-southeast-1"
+      },
+      "ap-southeast-2": {
+        "lexRegion": "ap-southeast-2"
+      },
+      "ap-northeast-1": {
+        "lexRegion": "ap-northeast-1"
+      },
+      "eu-central-1": {
+        "lexRegion": "eu-central-1"
+      },
+      "eu-west-1": {
+        "lexRegion": "eu-west-1"
+      },
+      "eu-west-2": {
+        "lexRegion": "eu-west-2"
+      },
+      "eu-west-3": {
+        "lexRegion": "eu-west-1"
+      }
+    }
+  },
+  "Metadata": {
+    "AWS::CloudFormation::Interface": {
+      "ParameterGroups": [
+        {
+          "Label": {
+            "default": "Creating lex chatbot"
+          },
+          "Parameters": [
+            "inputs"
+          ]
+        }
+      ]
+    }
+  },
+  "Conditions": {
+    "ShouldNotCreateEnvResources": {
+      "Fn::Equals": [
+        {
+          "Ref": "env"
+        },
+        "NONE"
+      ]
+    }
+  },
+  "Resources": {
+    "LambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Handler": "index.handler",
+        "FunctionName": {
+          "Fn::If": [
+            "ShouldNotCreateEnvResources",
+            "amplifydemo_cfnlambda_6cc76d34",
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "amplifydemo_cfnlambda_6cc76d34",
+                  "-",
+                  {
+                    "Ref": "env"
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "LambdaExecutionRole",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "ENV": {
+              "Ref": "env"
+            }
+          }
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": "300",
+        "Code": {
+          "S3Bucket": {
+            "Ref": "deploymentBucketName"
+          },
+          "S3Key": {
+            "Ref": "s3Key"
+          }
+        }
+      }
+    },
+    "LambdaExecutionRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": {
+          "Fn::If": [
+            "ShouldNotCreateEnvResources",
+            "lexLambdaRole6cc76d34",
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "lexLambdaRole6cc76d34",
+                  "-",
+                  {
+                    "Ref": "env"
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "cloudWatchPolicy6cc76d34",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": "arn:aws:logs:*:*:*"
+                }
+              ]
+            }
+          },
+          {
+            "PolicyName": "lexPolicy6cc76d34",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "lex:*"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
+          },
+          {
+            "PolicyName": "IAMPolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "iam:*"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
+          },
+          {
+            "PolicyName": "lambdaPolicy6cc76d34",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "lambda:*"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "LambdaFunctionOutputs6cc76d34": {
+      "Type": "Custom::LambdaCallout",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "LambdaFunction",
+            "Arn"
+          ]
+        },
+        "region": {
+          "Ref": "AWS::Region"
+        },
+        "lexRegion": {
+          "Fn::FindInMap": [
+            "RegionMapping",
+            {
+              "Ref": "AWS::Region"
+            },
+            "lexRegion"
+          ]
+        }
+      }
+    },
+    "CognitoUnauthPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "lex_amplify_6cc76d34",
+        "Roles": [
+          {
+            "Ref": "unauthRoleName"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Action": [
+                "lex:PostContent",
+                "lex:PostText"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:lex:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Fn::Select": [
+                          "4",
+                          {
+                            "Fn::Split": [
+                              ":",
+                              {
+                                "Ref": "authRoleArn"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      ":bot:",
+                      {
+                        "Fn::If": [
+                          "ShouldNotCreateEnvResources",
+                          "ScheduleAppointment",
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "ScheduleAppointment",
+                                "_",
+                                {
+                                  "Ref": "env"
+                                }
+                              ]
+                            ]
+                          }
+                        ]
+                      },
+                      ":*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CognitoAuthPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "lex_amplify_6cc76d34",
+        "Roles": [
+          {
+            "Ref": "authRoleName"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Action": [
+                "lex:PostContent",
+                "lex:PostText"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:lex:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Fn::Select": [
+                          "4",
+                          {
+                            "Fn::Split": [
+                              ":",
+                              {
+                                "Ref": "authRoleArn"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      ":bot:",
+                      {
+                        "Fn::If": [
+                          "ShouldNotCreateEnvResources",
+                          "ScheduleAppointment",
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "ScheduleAppointment",
+                                "_",
+                                {
+                                  "Ref": "env"
+                                }
+                              ]
+                            ]
+                          }
+                        ]
+                      },
+                      ":*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "Region": {
+      "Value": {
+        "Fn::FindInMap": [
+          "RegionMapping",
+          {
+            "Ref": "AWS::Region"
+          },
+          "lexRegion"
+        ]
+      }
+    },
+    "BotName": {
+      "Value": {
+        "Fn::If": [
+          "ShouldNotCreateEnvResources",
+          "ScheduleAppointment",
+          {
+            "Fn::Join": [
+              "",
+              [
+                "ScheduleAppointment",
+                "_",
+                {
+                  "Ref": "env"
+                }
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "FunctionArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "LambdaFunction",
+          "Arn"
+        ]
+      }
+    }
+  }
+}
