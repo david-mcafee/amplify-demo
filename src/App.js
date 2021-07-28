@@ -1,7 +1,7 @@
 /* src/App.js */
 import React, { useEffect, useState } from "react";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
-import { withAuthenticator } from "@aws-amplify/ui-react";
+import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import { createTodo } from "./graphql/mutations";
 import { listTodos } from "./graphql/queries";
 
@@ -68,6 +68,7 @@ const App = () => {
           <p style={styles.todoDescription}>{todo.description}</p>
         </div>
       ))}
+      <AmplifySignOut />
     </div>
   );
 };
