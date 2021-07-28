@@ -31,5 +31,11 @@
       "providerPlugin": "awscloudformation",
       "type": "manual"
     }
+  },
+  "analytics": {
+    "amplifydemo": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

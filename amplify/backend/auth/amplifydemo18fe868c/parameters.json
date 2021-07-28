@@ -1,6 +1,6 @@
 {
     "identityPoolName": "amplifydemo18fe868c_identitypool_18fe868c",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "amplif18fe868c",
     "userPoolName": "amplifydemo18fe868c_userpool_18fe868c",
     "autoVerifiedAttributes": [
