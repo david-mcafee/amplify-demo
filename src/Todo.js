@@ -44,15 +44,17 @@ const Todo = () => {
     try {
       if (!formState.name || !formState.description) return;
 
-      const todo = { ...formState };
-      setFormState(initialState);
-      setTodos([...todos, todo]);
       // Generate id so that you can optimistically update state, while still allowing
       // for update and delete, since those require ids. Alternative is to fetch
       // on each operation, but that's slow.
-      await API.graphql(
-        graphqlOperation(createTodo, { input: { id: uuidv4(), ...todo } })
-      );
+      const todoId = uuidv4();
+
+      const todo = { id: todoId, ...formState };
+
+      setFormState(initialState);
+
+      setTodos([...todos, todo]);
+      await API.graphql(graphqlOperation(createTodo, { input: { ...todo } }));
     } catch (err) {
       // If there was an error, fetch todos because local state is not correct
       fetchTodos();
