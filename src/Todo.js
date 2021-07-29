@@ -54,6 +54,7 @@ const Todo = () => {
         graphqlOperation(createTodo, { input: { id: uuidv4(), ...todo } })
       );
     } catch (err) {
+      // If there was an error, fetch todos because local state is not correct
       fetchTodos();
       console.log("error creating todo:", err);
     }
@@ -75,6 +76,7 @@ const Todo = () => {
         graphqlOperation(deleteTodo, { input: { id: todoId } })
       );
     } catch (err) {
+      // If there was an error, fetch todos because local state is not correct
       fetchTodos();
       console.log("error deleting todo:", err);
     }
