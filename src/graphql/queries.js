@@ -10,6 +10,7 @@ export const getTodo = /* GraphQL */ `
       priority
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -27,6 +28,38 @@ export const listTodos = /* GraphQL */ `
         priority
         createdAt
         updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getAppointment = /* GraphQL */ `
+  query GetAppointment($id: ID!) {
+    getAppointment(id: $id) {
+      id
+      name
+      time
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listAppointments = /* GraphQL */ `
+  query ListAppointments(
+    $filter: ModelAppointmentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAppointments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        time
+        createdAt
+        updatedAt
+        owner
       }
       nextToken
     }

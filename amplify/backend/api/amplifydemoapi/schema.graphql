@@ -1,6 +1,12 @@
-type Todo @model {
+type Todo @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String!
   description: String
   priority: String
+}
+
+type Appointment @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String!
+  time: String!
 }
