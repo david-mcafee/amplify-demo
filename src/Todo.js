@@ -19,7 +19,7 @@ import { onCreateTodo, onDeleteTodo } from "./graphql/subscriptions";
 
 Amplify.configure(awsExports);
 
-const initialState = { name: "", description: "" };
+const initialState = { name: "", description: "", priority: "" };
 
 const Todo = () => {
   const [formState, setFormState] = useState(initialState);
@@ -137,6 +137,11 @@ const Todo = () => {
           value={formState.description}
           placeholder="Description"
         />
+        <Input
+          onChange={(event) => setInput("priority", event.target.value)}
+          value={formState?.priority}
+          placeholder="Priority"
+        />
         <Button onClick={addTodo}>Create Todo</Button>
         <List>
           {todos.map((todo, index) => (
@@ -152,6 +157,9 @@ const Todo = () => {
                 </ListHeader>
                 <ListDescription>
                   <p>{todo.description}</p>
+                </ListDescription>
+                <ListDescription>
+                  <p>{todo?.priority}</p>
                 </ListDescription>
               </ListContent>
             </ListItem>
