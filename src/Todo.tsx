@@ -124,7 +124,7 @@ const Todo = () => {
       <div style={styles.container}>
         <Header as="h1" icon textAlign>
           <Icon name="users" circular />
-          <Header.Content>Shared Todos</Header.Content>
+          <Header.Content>My Todos</Header.Content>
           <Header sub>Open in 2 tabs to test concurrent updates</Header>
         </Header>
         <Input
