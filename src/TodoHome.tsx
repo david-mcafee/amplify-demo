@@ -19,11 +19,19 @@ import { onCreateTodo, onDeleteTodo } from "./graphql/subscriptions";
 
 Amplify.configure(awsExports);
 
-const initialState = { name: "", description: "", priority: "" };
+type Todo = {
+  readonly id: string;
+  readonly name: string;
+  readonly description: string;
+  readonly priority: string;
+};
 
-const Todo = () => {
+const initialState = { name: "", description: "", priority: "" };
+const initialTodoState: Array<Todo> = [];
+
+const TodoHome = () => {
   const [formState, setFormState] = useState(initialState);
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(initialTodoState);
 
   useEffect(() => {
     fetchTodos();
@@ -31,8 +39,11 @@ const Todo = () => {
 
   // Subscribe to onCreate updates
   useEffect(() => {
+    // https://github.com/aws-amplify/amplify-js/issues/7589
+    // @ts-ignore
     const subscription = API.graphql(graphqlOperation(onCreateTodo)).subscribe({
-      next: (todoData) => {
+      // TODO: add type
+      next: (todoData: any) => {
         console.log(todoData);
         const todo = todoData?.value?.data?.onCreateTodo;
 
@@ -48,8 +59,11 @@ const Todo = () => {
 
   // Subscribe to onDelete updates
   useEffect(() => {
+    // https://github.com/aws-amplify/amplify-js/issues/7589
+    // @ts-ignore
     const subscription = API.graphql(graphqlOperation(onDeleteTodo)).subscribe({
-      next: (todoData) => {
+      // TODO: add type
+      next: (todoData: any) => {
         console.log(todoData);
         const todo = todoData?.value?.data?.onDeleteTodo;
         // TODO: don't always perform this operation (i.e. another user has removed todo)
@@ -60,13 +74,14 @@ const Todo = () => {
     return () => subscription.unsubscribe();
   }, [todos]);
 
-  function setInput(key, value) {
+  function setInput(key: string, value: string) {
     setFormState({ ...formState, [key]: value });
   }
 
   async function fetchTodos() {
     try {
-      const todoData = await API.graphql(graphqlOperation(listTodos));
+      // TODO: add type
+      const todoData: any = await API.graphql(graphqlOperation(listTodos));
       const todos = todoData.data.listTodos.items;
       setTodos(todos);
     } catch (err) {
@@ -105,7 +120,7 @@ const Todo = () => {
   //   })
   // );
 
-  async function removeTodo(todoId) {
+  async function removeTodo(todoId: string) {
     try {
       // TODO:
       setTodos(todos.filter((todo) => todo.id !== todoId));
@@ -122,7 +137,7 @@ const Todo = () => {
   return (
     <div style={styles.parentContainer}>
       <div style={styles.container}>
-        <Header as="h1" icon textAlign>
+        <Header as="h1" icon textAlign="center">
           <Icon name="users" circular />
           <Header.Content>My Todos</Header.Content>
           <Header sub>Open in 2 tabs to test concurrent updates</Header>
@@ -170,7 +185,12 @@ const Todo = () => {
   );
 };
 
-const styles = {
+type Styles = {
+  container: React.CSSProperties;
+  parentContainer: React.CSSProperties;
+};
+
+const styles: Styles = {
   container: {
     width: 400,
     margin: "0 auto",
@@ -189,4 +209,4 @@ const styles = {
   },
 };
 
-export default Todo;
+export default TodoHome;

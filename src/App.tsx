@@ -1,6 +1,6 @@
 import React from "react";
-import Todo from "./Todo.js";
-import Chatbot from "./Chatbot.js";
+import TodoHome from "./TodoHome";
+import Chatbot from "./Chatbot";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Button, Menu } from "semantic-ui-react";
 import Amplify, { Analytics } from "aws-amplify";
@@ -54,7 +54,7 @@ const App = () => {
         */}
         <Switch>
           <Route exact path="/">
-            <Todo />
+            <TodoHome />
           </Route>
           <Route path="/chatbot">
             <Chatbot />

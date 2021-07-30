@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
+import { ChatResult } from "@aws-amplify/ui-components/dist/types/common/types/interactions-types";
 import { createAppointment, deleteAppointment } from "./graphql/mutations";
 import { listAppointments } from "./graphql/queries";
 import { AmplifyChatbot } from "@aws-amplify/ui-react";
@@ -21,8 +22,17 @@ import { v4 as uuidv4 } from "uuid";
 
 Amplify.configure(awsconfig);
 
+type Appointment = {
+  readonly id: string;
+  readonly name: string;
+  readonly time: string;
+  readonly owner: string;
+};
+
+const appointmentsInitialState: Array<Appointment> = [];
+
 const Chatbot = () => {
-  const [appointments, setAppointments] = useState([]);
+  const [appointments, setAppointments] = useState(appointmentsInitialState);
 
   useEffect(() => {
     fetchAppointments();
@@ -30,7 +40,8 @@ const Chatbot = () => {
 
   async function fetchAppointments() {
     try {
-      const appointmentsData = await API.graphql(
+      // TODO: add type
+      const appointmentsData: any = await API.graphql(
         graphqlOperation(listAppointments)
       );
       const appointments = appointmentsData.data.listAppointments.items;
@@ -38,7 +49,7 @@ const Chatbot = () => {
     } catch (err) {}
   }
 
-  async function addAppointment(appointment) {
+  async function addAppointment(appointment: Appointment) {
     try {
       setAppointments([...appointments, appointment]);
       await API.graphql(
@@ -51,14 +62,17 @@ const Chatbot = () => {
     }
   }
 
-  const handleChatComplete = (event) => {
+  const handleChatComplete = (event: CustomEvent<ChatResult>) => {
     const { data, err } = event.detail;
     if (data) {
       console.log("Chat fulfilled!", JSON.stringify(data));
+      // TODO
+      // @ts-ignore
       const appointmentData = data.slots;
       const appointmentType = appointmentData?.AppointmentType;
       const appointmentDate = appointmentData?.Date;
       const appointmentTime = appointmentData?.Time;
+      const appointmentOwner = appointmentData?.Owner;
       // Generate id so that you can optimistically update state, while still allowing
       // for update and delete, since those require ids. Alternative is to fetch
       // on each operation, but that's slow.
@@ -68,6 +82,7 @@ const Chatbot = () => {
         id: appointmentId,
         name: appointmentType,
         time: `${appointmentDate} at ${appointmentTime}`,
+        owner: appointmentOwner,
       };
 
       addAppointment(appointment);
@@ -77,13 +92,17 @@ const Chatbot = () => {
 
   useEffect(() => {
     const chatbotElement = document.querySelector("amplify-chatbot");
+    // TODO
+    // @ts-ignore
     chatbotElement.addEventListener("chatCompleted", handleChatComplete);
     return function cleanup() {
+      // TODO
+      // @ts-ignore
       chatbotElement.removeEventListener("chatCompleted", handleChatComplete);
     };
   }, []);
 
-  async function removeAppointment(appointmentId) {
+  async function removeAppointment(appointmentId: string) {
     try {
       setAppointments(appointments.filter((appt) => appt.id !== appointmentId));
       await API.graphql(
@@ -139,15 +158,11 @@ const Chatbot = () => {
   );
 };
 
+type Styles = {
+  parentContainer: React.CSSProperties;
+};
+
 const styles = {
-  // container: {
-  //   width: 400,
-  //   margin: "0 auto",
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   justifyContent: "center",
-  //   padding: 20,
-  // },
   parentContainer: {
     width: "100%",
     margin: "0 auto",
