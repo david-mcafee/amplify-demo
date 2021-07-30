@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
-import { createAppointment } from "./graphql/mutations";
+import { createAppointment, deleteAppointment } from "./graphql/mutations";
 import { listAppointments } from "./graphql/queries";
 import { AmplifyChatbot } from "@aws-amplify/ui-react";
 import awsconfig from "./aws-exports";
 import {
+  Button,
   Container,
   Divider,
   Header,
+  Icon,
   List,
+  ListContent,
   ListItem,
   ListHeader,
   ListDescription,
@@ -42,6 +45,7 @@ const Chatbot = () => {
         graphqlOperation(createAppointment, { input: { ...appointment } })
       );
     } catch (err) {
+      // If there was an error, fetch appointments because local state is not correct
       fetchAppointments();
       console.log("error creating appointment:", err);
     }
@@ -79,6 +83,18 @@ const Chatbot = () => {
     };
   }, []);
 
+  async function removeAppointment(appointmentId) {
+    try {
+      setAppointments(appointments.filter((appt) => appt.id !== appointmentId));
+      await API.graphql(
+        graphqlOperation(deleteAppointment, { input: { id: appointmentId } })
+      );
+    } catch (err) {
+      // If there was an error, fetch appointments because local state is not correct
+      fetchAppointments();
+    }
+  }
+
   return (
     <Container style={styles.parentContainer}>
       <Container>
@@ -106,6 +122,15 @@ const Chatbot = () => {
               <ListDescription>
                 <p>{appointment.time}</p>
               </ListDescription>
+              <ListContent>
+                <Button
+                  onClick={() => removeAppointment(appointment.id)}
+                  icon
+                  circular
+                >
+                  <Icon name="delete" color="red" />
+                </Button>
+              </ListContent>
             </ListItem>
           ))}
         </List>
