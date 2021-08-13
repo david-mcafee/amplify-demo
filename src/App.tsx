@@ -1,6 +1,7 @@
 import React from "react";
 import TodoHome from "./TodoHome";
 import Chatbot from "./Chatbot";
+import Lambda from "./Lambda";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Button, Menu } from "semantic-ui-react";
 import Amplify, { Analytics } from "aws-amplify";
@@ -38,6 +39,9 @@ const App = () => {
             <Link to="/chatbot">Chatbot</Link>
           </Menu.Item>
           <Menu.Item>
+            <Link to="/lambda">Lambda</Link>
+          </Menu.Item>
+          <Menu.Item>
             <Button onClick={testAnalyticsButton}>Test Analytics</Button>
           </Menu.Item>
           <Menu.Item position="right">
@@ -58,6 +62,9 @@ const App = () => {
           </Route>
           <Route path="/chatbot">
             <Chatbot />
+          </Route>
+          <Route path="/lambda">
+            <Lambda />
           </Route>
         </Switch>
       </div>

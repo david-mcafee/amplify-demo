@@ -7,6 +7,7 @@ export type CreateTodoInput = {
   name: string,
   description?: string | null,
   priority?: string | null,
+  _version?: number | null,
 };
 
 export type ModelTodoConditionInput = {
@@ -64,6 +65,9 @@ export type Todo = {
   name: string,
   description?: string | null,
   priority?: string | null,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   createdAt: string,
   updatedAt: string,
   owner?: string | null,
@@ -74,16 +78,19 @@ export type UpdateTodoInput = {
   name?: string | null,
   description?: string | null,
   priority?: string | null,
+  _version?: number | null,
 };
 
 export type DeleteTodoInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type CreateAppointmentInput = {
   id?: string | null,
   name: string,
   time: string,
+  _version?: number | null,
 };
 
 export type ModelAppointmentConditionInput = {
@@ -99,6 +106,9 @@ export type Appointment = {
   id: string,
   name: string,
   time: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
   createdAt: string,
   updatedAt: string,
   owner?: string | null,
@@ -108,10 +118,12 @@ export type UpdateAppointmentInput = {
   id: string,
   name?: string | null,
   time?: string | null,
+  _version?: number | null,
 };
 
 export type DeleteAppointmentInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type ModelTodoFilterInput = {
@@ -144,6 +156,7 @@ export type ModelTodoConnection = {
   __typename: "ModelTodoConnection",
   items?:  Array<Todo | null > | null,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelAppointmentFilterInput = {
@@ -159,6 +172,7 @@ export type ModelAppointmentConnection = {
   __typename: "ModelAppointmentConnection",
   items?:  Array<Appointment | null > | null,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type CreateTodoMutationVariables = {
@@ -173,6 +187,9 @@ export type CreateTodoMutation = {
     name: string,
     description?: string | null,
     priority?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -191,6 +208,9 @@ export type UpdateTodoMutation = {
     name: string,
     description?: string | null,
     priority?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -209,6 +229,9 @@ export type DeleteTodoMutation = {
     name: string,
     description?: string | null,
     priority?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -226,6 +249,9 @@ export type CreateAppointmentMutation = {
     id: string,
     name: string,
     time: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -243,6 +269,9 @@ export type UpdateAppointmentMutation = {
     id: string,
     name: string,
     time: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -260,9 +289,40 @@ export type DeleteAppointmentMutation = {
     id: string,
     name: string,
     time: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
+  } | null,
+};
+
+export type SyncTodosQueryVariables = {
+  filter?: ModelTodoFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncTodosQuery = {
+  syncTodos?:  {
+    __typename: "ModelTodoConnection",
+    items?:  Array< {
+      __typename: "Todo",
+      id: string,
+      name: string,
+      description?: string | null,
+      priority?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null > | null,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -277,6 +337,9 @@ export type GetTodoQuery = {
     name: string,
     description?: string | null,
     priority?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -298,11 +361,42 @@ export type ListTodosQuery = {
       name: string,
       description?: string | null,
       priority?: string | null,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncAppointmentsQueryVariables = {
+  filter?: ModelAppointmentFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncAppointmentsQuery = {
+  syncAppointments?:  {
+    __typename: "ModelAppointmentConnection",
+    items?:  Array< {
+      __typename: "Appointment",
+      id: string,
+      name: string,
+      time: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null > | null,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -316,6 +410,9 @@ export type GetAppointmentQuery = {
     id: string,
     name: string,
     time: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -336,11 +433,15 @@ export type ListAppointmentsQuery = {
       id: string,
       name: string,
       time: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
     } | null > | null,
     nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -355,6 +456,9 @@ export type OnCreateTodoSubscription = {
     name: string,
     description?: string | null,
     priority?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -372,6 +476,9 @@ export type OnUpdateTodoSubscription = {
     name: string,
     description?: string | null,
     priority?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -389,6 +496,9 @@ export type OnDeleteTodoSubscription = {
     name: string,
     description?: string | null,
     priority?: string | null,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -405,6 +515,9 @@ export type OnCreateAppointmentSubscription = {
     id: string,
     name: string,
     time: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -421,6 +534,9 @@ export type OnUpdateAppointmentSubscription = {
     id: string,
     name: string,
     time: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -437,6 +553,9 @@ export type OnDeleteAppointmentSubscription = {
     id: string,
     name: string,
     time: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,

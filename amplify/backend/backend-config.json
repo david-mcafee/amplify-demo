@@ -14,6 +14,20 @@
           "additionalAuthenticationProviders": []
         }
       }
+    },
+    "demorestapi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "demorestapilambda",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
     }
   },
   "auth": {
@@ -42,6 +56,13 @@
       "service": "Lex",
       "providerPlugin": "awscloudformation",
       "build": true
+    }
+  },
+  "function": {
+    "demorestapilambda": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   }
 }

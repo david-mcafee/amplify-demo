@@ -9,6 +9,9 @@ export const onCreateTodo = /* GraphQL */ `
       name
       description
       priority
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -22,6 +25,9 @@ export const onUpdateTodo = /* GraphQL */ `
       name
       description
       priority
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -35,6 +41,9 @@ export const onDeleteTodo = /* GraphQL */ `
       name
       description
       priority
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -47,6 +56,9 @@ export const onCreateAppointment = /* GraphQL */ `
       id
       name
       time
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -59,6 +71,9 @@ export const onUpdateAppointment = /* GraphQL */ `
       id
       name
       time
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -71,6 +86,9 @@ export const onDeleteAppointment = /* GraphQL */ `
       id
       name
       time
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
