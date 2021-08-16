@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { API } from "aws-amplify";
 import { Container, Header } from "semantic-ui-react";
 
@@ -8,18 +8,17 @@ const Lambda = () => {
   const [response, setResponse] = useState(initialState);
 
   function getData() {
-    const apiName = "MyApiName";
-    const path = "/path";
+    const apiName = "demorestapilambda";
+    const path = "/index.js";
     const myInit = {
       // OPTIONAL
       headers: {}, // OPTIONAL
-      response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
+      // response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
     };
 
     return API.get(apiName, path, myInit)
       .then((response) => {
         // Add your code here
-        debugger;
         return response;
       })
       .catch((error) => {
@@ -27,10 +26,18 @@ const Lambda = () => {
       });
   }
 
-  (async function callLambda() {
-    const response = await getData();
-    setResponse(response);
-  })();
+  async function callLambda() {
+    try {
+      const response = await getData();
+      setResponse(response);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    callLambda();
+  });
 
   return (
     <Container>
