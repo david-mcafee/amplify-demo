@@ -8,8 +8,8 @@ const Lambda = () => {
   const [response, setResponse] = useState(initialState);
 
   function getData() {
-    const apiName = "demorestapilambda";
-    const path = "/index.js";
+    const apiName = "demorestapi";
+    const path = "/items";
     const myInit = {
       // OPTIONAL
       headers: {}, // OPTIONAL
