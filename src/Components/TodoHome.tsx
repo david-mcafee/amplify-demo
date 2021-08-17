@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Amplify, { API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import { createTodo, deleteTodo } from "../graphql/mutations";
 import { listTodos } from "../graphql/queries";
 import {
@@ -14,10 +14,7 @@ import {
   ListDescription,
 } from "semantic-ui-react";
 import { v4 as uuidv4 } from "uuid";
-import awsExports from "../aws-exports";
 import { onCreateTodo, onDeleteTodo } from "../graphql/subscriptions";
-
-Amplify.configure(awsExports);
 
 type Todo = {
   readonly id: string;

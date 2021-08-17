@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Amplify, { API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import { ChatResult } from "@aws-amplify/ui-components/dist/types/common/types/interactions-types";
 import { createAppointment, deleteAppointment } from "../graphql/mutations";
 import { listAppointments } from "../graphql/queries";
 import { AmplifyChatbot } from "@aws-amplify/ui-react";
-import awsconfig from "../aws-exports";
 import {
   Button,
   Container,
@@ -19,8 +18,6 @@ import {
 } from "semantic-ui-react";
 import { v4 as uuidv4 } from "uuid";
 // import { createAppointment } from "./graphql/mutations";
-
-Amplify.configure(awsconfig);
 
 type Appointment = {
   readonly id: string;

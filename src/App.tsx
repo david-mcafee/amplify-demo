@@ -1,7 +1,4 @@
 import React from "react";
-import TodoHome from "./Components/TodoHome";
-import Chatbot from "./Components/Chatbot";
-import Lambda from "./Components/Lambda";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Button, Menu } from "semantic-ui-react";
 import Amplify, { Analytics } from "aws-amplify";
@@ -9,6 +6,11 @@ import { AmplifySignOut, withAuthenticator } from "@aws-amplify/ui-react";
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
+
+const TodoHome = React.lazy(() => import("./Components/TodoHome"));
+const Chatbot = React.lazy(() => import("./Components/Chatbot"));
+const Lambda = React.lazy(() => import("./Components/Lambda"));
+const PubSub = React.lazy(() => import("./Components/PubSub"));
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -42,6 +44,9 @@ const App = () => {
             <Link to="/lambda">Lambda</Link>
           </Menu.Item>
           <Menu.Item>
+            <Link to="/pubsub">PubSub</Link>
+          </Menu.Item>
+          <Menu.Item>
             <Button onClick={testAnalyticsButton}>Test Analytics</Button>
           </Menu.Item>
           <Menu.Item position="right">
@@ -58,13 +63,24 @@ const App = () => {
         */}
         <Switch>
           <Route exact path="/">
-            <TodoHome />
+            <React.Suspense fallback={<div>{"Loading..."}</div>}>
+              <TodoHome />
+            </React.Suspense>
           </Route>
           <Route path="/chatbot">
-            <Chatbot />
+            <React.Suspense fallback={<div>{"Loading..."}</div>}>
+              <Chatbot />
+            </React.Suspense>
           </Route>
           <Route path="/lambda">
-            <Lambda />
+            <React.Suspense fallback={<div>{"Loading..."}</div>}>
+              <Lambda />
+            </React.Suspense>
+          </Route>
+          <Route path="/pubsub">
+            <React.Suspense fallback={<div>{"Loading..."}</div>}>
+              <PubSub />
+            </React.Suspense>
           </Route>
         </Switch>
       </div>
