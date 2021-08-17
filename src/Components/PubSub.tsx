@@ -9,7 +9,9 @@ import {
   ListContent,
 } from "semantic-ui-react";
 
-import Amplify, { PubSub } from "aws-amplify";
+import { v4 as uuidv4 } from "uuid";
+
+import Amplify, { Auth, PubSub } from "aws-amplify";
 import { AWSIoTProvider } from "@aws-amplify/pubsub";
 
 // Apply plugin with configuration
@@ -30,28 +32,46 @@ Amplify.addPluggable(
 // Should be:
 // const cognitoIdentityId = info.identityId;
 
+type Message = {
+  readonly id: string;
+  readonly message: string;
+};
+
 const initialFormState = { message: "" };
-const initialMessageState: Array<string> = [];
+const initialMessageState: Array<Message> = [{ id: "test", message: "test" }];
 
 const PubSubDemo = () => {
   const [formState, setFormState] = useState(initialFormState);
   const [messages, setMessages] = useState(initialMessageState);
 
+  function onMessageReceived(data: any) {
+    if (data?.value?.msg) {
+      console.log("set message----------------");
+      console.log(messages);
+      const messageId = uuidv4();
+      setMessages((messages) => {
+        return [...messages, { id: messageId, message: data?.value?.msg }];
+      });
+    } else {
+      console.log("data is missing---------", data);
+    }
+  }
+
   useEffect(() => {
     PubSub.subscribe("myTopic1").subscribe({
-      next: (data) => setMessages([...messages, data?.value?.msg]),
-      error: (error) => console.error(error),
+      next: (data) => onMessageReceived(data),
+      // next: (data) => console.log(data),
+      error: (error) => console.error("error subscribing----------", error),
       // TODO: docs are also incorrect here:
       // closed: () => console.log("Done"),
       // Should be:
       complete: () => console.log("Done"),
     });
-    // return sub1.unsubscribe();
-  });
+  }, []);
 
   async function addMessage() {
     try {
-      debugger;
+      // debugger;
       if (!formState.message) return;
 
       const message = formState.message;
@@ -81,7 +101,7 @@ const PubSubDemo = () => {
         {messages?.map((message, index) => (
           <ListItem key={index}>
             <ListContent>
-              <p>{message}</p>
+              <p>{message.message}</p>
             </ListContent>
           </ListItem>
         ))}
