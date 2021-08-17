@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { ChatResult } from "@aws-amplify/ui-components/dist/types/common/types/interactions-types";
-import { createAppointment, deleteAppointment } from "./graphql/mutations";
-import { listAppointments } from "./graphql/queries";
+import { createAppointment, deleteAppointment } from "../graphql/mutations";
+import { listAppointments } from "../graphql/queries";
 import { AmplifyChatbot } from "@aws-amplify/ui-react";
-import awsconfig from "./aws-exports";
+import awsconfig from "../aws-exports";
 import {
   Button,
   Container,

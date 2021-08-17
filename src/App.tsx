@@ -1,7 +1,7 @@
 import React from "react";
-import TodoHome from "./TodoHome";
-import Chatbot from "./Chatbot";
-import Lambda from "./Lambda";
+import TodoHome from "./Components/TodoHome";
+import Chatbot from "./Components/Chatbot";
+import Lambda from "./Components/Lambda";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Button, Menu } from "semantic-ui-react";
 import Amplify, { Analytics } from "aws-amplify";
