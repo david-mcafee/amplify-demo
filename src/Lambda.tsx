@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { API } from "aws-amplify";
 import { Container, Header } from "semantic-ui-react";
 
-const initialState = "test";
+const initialState = "Loading...";
 
 const Lambda = () => {
   const [response, setResponse] = useState(initialState);
@@ -13,7 +13,7 @@ const Lambda = () => {
     const myInit = {
       // OPTIONAL
       headers: {}, // OPTIONAL
-      // response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
+      response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
     };
 
     return API.get(apiName, path, myInit)
@@ -22,6 +22,7 @@ const Lambda = () => {
         return response;
       })
       .catch((error) => {
+        setResponse("Error calling Lambda...");
         console.log(error.response);
       });
   }
@@ -29,7 +30,8 @@ const Lambda = () => {
   async function callLambda() {
     try {
       const response = await getData();
-      setResponse(response);
+      console.log(response);
+      setResponse(response.data);
     } catch (err) {
       console.log(err);
     }
