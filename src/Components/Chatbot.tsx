@@ -120,7 +120,6 @@ const Chatbot = () => {
           welcomeMessage="Hello, would you like to schedule an appointment?"
           conversationModeOn
           textEnabled
-          voiceEnabled
         />
       </Container>
       <Divider />
