@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useReducer, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Button, Menu } from "semantic-ui-react";
-import Amplify, { Analytics } from "aws-amplify";
+import Amplify, { Analytics, Auth } from "aws-amplify";
 import { AmplifySignOut, withAuthenticator } from "@aws-amplify/ui-react";
+import UserContext from "./UserContext";
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
@@ -21,7 +22,36 @@ const PubSub = React.lazy(() => import("./Components/PubSub"));
 // making sure things like the back button and bookmarks
 // work properly.
 
+const initialState = { user: {} };
+
+function reducer(userState: any, action: any) {
+  switch (action.type) {
+    case "addUser":
+      return { user: action.user };
+    default:
+      throw new Error();
+  }
+}
+
 const App = () => {
+  const [userState, dispatch] = useReducer(reducer, initialState);
+
+  async function getUser() {
+    let response;
+
+    try {
+      response = await Auth.currentAuthenticatedUser();
+    } catch (err) {
+      console.log("error getting current user");
+    } finally {
+      dispatch({ type: "addUser", user: { username: response?.username } });
+    }
+  }
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   function testAnalyticsButton() {
     Analytics.record({
       name: "test button click",
@@ -33,7 +63,9 @@ const App = () => {
     <Router>
       <div>
         <Menu>
-          <Menu.Item header>Amplify Demo!</Menu.Item>
+          <Menu.Item
+            header
+          >{`Welcome ${userState?.user?.username}!`}</Menu.Item>
           <Menu.Item>
             <Link to="/">Todo</Link>
           </Menu.Item>
@@ -79,7 +111,9 @@ const App = () => {
           </Route>
           <Route path="/pubsub">
             <React.Suspense fallback={<div>{"Loading..."}</div>}>
-              <PubSub />
+              <UserContext.Provider value={userState}>
+                <PubSub />
+              </UserContext.Provider>
             </React.Suspense>
           </Route>
         </Switch>

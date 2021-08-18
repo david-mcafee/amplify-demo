@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Button,
   Container,
@@ -7,12 +7,16 @@ import {
   List,
   ListItem,
   ListContent,
+  ListHeader,
+  ListDescription,
 } from "semantic-ui-react";
 
 import { v4 as uuidv4 } from "uuid";
 
-import Amplify, { Auth, PubSub } from "aws-amplify";
+import Amplify, { PubSub } from "aws-amplify";
 import { AWSIoTProvider } from "@aws-amplify/pubsub";
+
+import UserContext from "../UserContext";
 
 // Apply plugin with configuration
 Amplify.addPluggable(
@@ -35,33 +39,42 @@ Amplify.addPluggable(
 type Message = {
   readonly id: string;
   readonly message: string;
+  readonly username: string;
 };
 
 const initialFormState = { message: "" };
-const initialMessageState: Array<Message> = [{ id: "test", message: "test" }];
+const initialMessageState: Array<Message> = [
+  { id: "test", message: "test", username: "test user" },
+];
 
 const PubSubDemo = () => {
   const [formState, setFormState] = useState(initialFormState);
   const [messages, setMessages] = useState(initialMessageState);
 
+  const userContext = useContext(UserContext);
+
   function onMessageReceived(data: any) {
     if (data?.value?.msg) {
-      console.log("set message----------------");
-      console.log(messages);
       const messageId = uuidv4();
       setMessages((messages) => {
-        return [...messages, { id: messageId, message: data?.value?.msg }];
+        return [
+          ...messages,
+          {
+            id: messageId,
+            message: data?.value?.msg,
+            username: userContext?.user?.username,
+          },
+        ];
       });
     } else {
-      console.log("data is missing---------", data);
+      console.log("Error:", data);
     }
   }
 
   useEffect(() => {
     PubSub.subscribe("myTopic1").subscribe({
       next: (data) => onMessageReceived(data),
-      // next: (data) => console.log(data),
-      error: (error) => console.error("error subscribing----------", error),
+      error: (error) => console.error("subscription error", error),
       // TODO: docs are also incorrect here:
       // closed: () => console.log("Done"),
       // Should be:
@@ -71,7 +84,6 @@ const PubSubDemo = () => {
 
   async function addMessage() {
     try {
-      // debugger;
       if (!formState.message) return;
 
       const message = formState.message;
@@ -90,22 +102,31 @@ const PubSubDemo = () => {
 
   return (
     <Container>
-      <Header as="h1">PubSub</Header>
-      <Input
-        onChange={(event) => setInput("message", event.target.value)}
-        value={formState.message}
-        placeholder="Message"
-      />
-      <Button onClick={addMessage}>Add message</Button>
-      <List>
-        {messages?.map((message, index) => (
-          <ListItem key={index}>
-            <ListContent>
-              <p>{message.message}</p>
-            </ListContent>
-          </ListItem>
-        ))}
-      </List>
+      <Container>
+        <Header as="h1">PubSub</Header>
+        <Container>
+          <Input
+            onChange={(event) => setInput("message", event.target.value)}
+            value={formState.message}
+            placeholder="Message"
+          />
+          <Button onClick={addMessage}>Add message</Button>
+        </Container>
+        <List>
+          {messages?.map((message, index) => (
+            <ListItem key={index}>
+              <ListContent>
+                <ListHeader>
+                  <p>{message?.message}</p>
+                </ListHeader>
+                <ListDescription>
+                  <p>{message?.username}</p>
+                </ListDescription>
+              </ListContent>
+            </ListItem>
+          ))}
+        </List>
+      </Container>
     </Container>
   );
 };
