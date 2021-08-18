@@ -18,7 +18,7 @@ const Lambda = () => {
     }
   }
 
-  async function uploadFile(e) {
+  async function uploadFile(e: any) {
     const file = e.target.files[0];
     try {
       const response = await Storage.put(file.name, file, {
