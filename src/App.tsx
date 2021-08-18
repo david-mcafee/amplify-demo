@@ -4,6 +4,7 @@ import { Button, Menu } from "semantic-ui-react";
 import Amplify, { Analytics, Auth } from "aws-amplify";
 import { AmplifySignOut, withAuthenticator } from "@aws-amplify/ui-react";
 import UserContext from "./UserContext";
+import Loader from "./Components/Loader";
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
@@ -12,6 +13,7 @@ const TodoHome = React.lazy(() => import("./Components/TodoHome"));
 const Chatbot = React.lazy(() => import("./Components/Chatbot"));
 const Lambda = React.lazy(() => import("./Components/Lambda"));
 const PubSub = React.lazy(() => import("./Components/PubSub"));
+const Storage = React.lazy(() => import("./Components/Storage"));
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -80,6 +82,9 @@ const App = () => {
             <Link to="/pubsub">PubSub</Link>
           </Menu.Item>
           <Menu.Item>
+            <Link to="/storage">Storage</Link>
+          </Menu.Item>
+          <Menu.Item>
             <Button onClick={testAnalyticsButton}>Test Analytics</Button>
           </Menu.Item>
           <Menu.Item position="right">
@@ -96,25 +101,30 @@ const App = () => {
         */}
         <Switch>
           <Route exact path="/">
-            <React.Suspense fallback={<div>{"Loading..."}</div>}>
+            <React.Suspense fallback={<Loader />}>
               <TodoHome />
             </React.Suspense>
           </Route>
           <Route path="/chatbot">
-            <React.Suspense fallback={<div>{"Loading..."}</div>}>
+            <React.Suspense fallback={<Loader />}>
               <Chatbot />
             </React.Suspense>
           </Route>
           <Route path="/lambda">
-            <React.Suspense fallback={<div>{"Loading..."}</div>}>
+            <React.Suspense fallback={<Loader />}>
               <Lambda />
             </React.Suspense>
           </Route>
           <Route path="/pubsub">
-            <React.Suspense fallback={<div>{"Loading..."}</div>}>
+            <React.Suspense fallback={<Loader />}>
               <UserContext.Provider value={userState}>
                 <PubSub />
               </UserContext.Provider>
+            </React.Suspense>
+          </Route>
+          <Route path="/storage">
+            <React.Suspense fallback={<Loader />}>
+              <Storage />
             </React.Suspense>
           </Route>
         </Switch>
