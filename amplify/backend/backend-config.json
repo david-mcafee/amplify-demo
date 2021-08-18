@@ -67,7 +67,8 @@
     "S3Trigger1105e06e": {
       "service": "Lambda",
       "providerPlugin": "awscloudformation",
-      "build": true
+      "build": true,
+      "dependsOn": []
     }
   },
   "storage": {
