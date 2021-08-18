@@ -7,7 +7,7 @@ const Lambda = () => {
     try {
       const response = await Storage.put("test.txt", "File content", {
         metadata: { key: "value" }, // (map<String>) A map of metadata to store with the object in S3.
-        progressCallback(progress) {
+        progressCallback(progress: any) {
           console.log(`Uploaded: ${progress.loaded}/${progress.total}`);
         },
       });
