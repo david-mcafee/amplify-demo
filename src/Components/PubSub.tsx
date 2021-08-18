@@ -103,7 +103,9 @@ const PubSubDemo = () => {
   return (
     <Container>
       <Container>
-        <Header as="h1">PubSub</Header>
+        <Header as="h1">
+          CloudFormation config seems to be off, only works for 1 user
+        </Header>
         <Container>
           <Input
             onChange={(event) => setInput("message", event.target.value)}

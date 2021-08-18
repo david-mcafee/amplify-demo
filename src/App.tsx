@@ -50,6 +50,7 @@ const App = () => {
 
   useEffect(() => {
     getUser();
+    Auth.currentCredentials().then((info) => {});
   }, []);
 
   function testAnalyticsButton() {
