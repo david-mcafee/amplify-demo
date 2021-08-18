@@ -43,9 +43,7 @@ type Message = {
 };
 
 const initialFormState = { message: "" };
-const initialMessageState: Array<Message> = [
-  { id: "test", message: "test", username: "test user" },
-];
+const initialMessageState: Array<Message> = [];
 
 const PubSubDemo = () => {
   const [formState, setFormState] = useState(initialFormState);
@@ -62,7 +60,7 @@ const PubSubDemo = () => {
           {
             id: messageId,
             message: data?.value?.msg,
-            username: userContext?.user?.username,
+            username: data?.value?.author,
           },
         ];
       });
@@ -90,7 +88,10 @@ const PubSubDemo = () => {
 
       setFormState(initialFormState);
 
-      await PubSub.publish("myTopic1", { msg: message });
+      await PubSub.publish("myTopic1", {
+        author: userContext?.user?.username,
+        msg: message,
+      });
     } catch (err) {
       console.log("error publishing message", err);
     }
@@ -104,7 +105,7 @@ const PubSubDemo = () => {
     <Container>
       <Container>
         <Header as="h1">
-          CloudFormation config seems to be off, only works for 1 user
+          Sign-in with a second account in another browser to test the chat!
         </Header>
         <Container>
           <Input
