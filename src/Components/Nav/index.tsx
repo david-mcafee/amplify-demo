@@ -23,7 +23,7 @@ const Nav = ({ username }: NavProps) => {
     <Menu className={navContainer}>
       <Menu.Item header>{`Welcome ${username}!`}</Menu.Item>
       <Menu.Item>
-        <Link to="/">Todo</Link>
+        <Link to="/">DataStore</Link>
       </Menu.Item>
       <Menu.Item>
         <Link to="/chatbot">Chatbot</Link>
