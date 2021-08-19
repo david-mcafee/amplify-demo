@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Amplify, { Auth } from "aws-amplify";
+import Amplify, { Analytics, Auth } from "aws-amplify";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import UserContext from "./UserContext";
 import Loader from "./Components/Loader";
@@ -34,6 +34,54 @@ function reducer(userState: any, action: any) {
       throw new Error();
   }
 }
+
+Analytics.autoTrack("session", {
+  // REQUIRED, turn on/off the auto tracking
+  enable: true,
+  // OPTIONAL, the attributes of the event, you can either pass an object or a function
+  // which allows you to define dynamic attributes
+  attributes: {
+    attr: "attr",
+  },
+  // when using function
+  // attributes: () => {
+  //    const attr = somewhere();
+  //    return {
+  //        myAttr: attr
+  //    }
+  // },
+  // OPTIONAL, the service provider, by default is the Amazon Pinpoint
+  provider: "AWSPinpoint",
+});
+
+Analytics.autoTrack("pageView", {
+  // REQUIRED, turn on/off the auto tracking
+  enable: true,
+  // OPTIONAL, the event name, by default is 'pageView'
+  eventName: "pageView",
+  // OPTIONAL, the attributes of the event, you can either pass an object or a function
+  // which allows you to define dynamic attributes
+  attributes: {
+    attr: "attr",
+  },
+  // when using function
+  // attributes: () => {
+  //    const attr = somewhere();
+  //    return {
+  //        myAttr: attr
+  //    }
+  // },
+  // OPTIONAL, by default is 'multiPageApp'
+  // you need to change it to 'SPA' if your app is a single-page app like React
+  type: "multiPageApp",
+  // OPTIONAL, the service provider, by default is the Amazon Pinpoint
+  provider: "AWSPinpoint",
+  // OPTIONAL, to get the current page url
+  getUrl: () => {
+    // the default function
+    return window.location.origin + window.location.pathname;
+  },
+});
 
 const App = () => {
   const [userState, dispatch] = useReducer(reducer, initialState);
