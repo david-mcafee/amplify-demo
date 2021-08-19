@@ -52,10 +52,13 @@ const TodoHome = () => {
           setTodos([...todos, todo]);
         }
       },
+      error: (error: any) => {
+        console.log(error);
+      },
     });
 
     return () => subscription.unsubscribe();
-  }, [todos]);
+  }, []);
 
   // Subscribe to onDelete updates
   useEffect(() => {
@@ -69,10 +72,13 @@ const TodoHome = () => {
         // TODO: don't always perform this operation (i.e. another user has removed todo)
         setTodos(todos.filter((t) => t.id !== todo.id));
       },
+      error: (error: any) => {
+        console.log(error);
+      },
     });
 
     return () => subscription.unsubscribe();
-  }, [todos]);
+  }, []);
 
   function setInput(key: string, value: string) {
     setFormState({ ...formState, [key]: value });
