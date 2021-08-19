@@ -12,6 +12,7 @@
     "aws-amplify": "^4.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-jss": "^10.7.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "semantic-ui-css": "^2.4.1",

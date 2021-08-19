@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Storage } from "aws-amplify";
 import { Button, Divider, Container, Header } from "semantic-ui-react";
-import Progress from "./Progress";
+import Progress from "../Progress";
 import { v4 as uuidv4 } from "uuid";
 
 const initialState: number = 0;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { API, graphqlOperation } from "aws-amplify";
-import { createTodo, deleteTodo } from "../graphql/mutations";
-import { listTodos } from "../graphql/queries";
+import { createTodo, deleteTodo } from "../../graphql/mutations";
+import { listTodos } from "../../graphql/queries";
 import {
   Button,
   Header,
@@ -14,7 +14,7 @@ import {
   ListDescription,
 } from "semantic-ui-react";
 import { v4 as uuidv4 } from "uuid";
-import { onCreateTodo, onDeleteTodo } from "../graphql/subscriptions";
+import { onCreateTodo, onDeleteTodo } from "../../graphql/subscriptions";
 
 type Todo = {
   readonly id: string;

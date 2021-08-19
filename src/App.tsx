@@ -1,15 +1,15 @@
 import React, { useReducer, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Button, Menu } from "semantic-ui-react";
-import Amplify, { Analytics, Auth } from "aws-amplify";
-import { AmplifySignOut, withAuthenticator } from "@aws-amplify/ui-react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Amplify, { Auth } from "aws-amplify";
+import { withAuthenticator } from "@aws-amplify/ui-react";
 import UserContext from "./UserContext";
 import Loader from "./Components/Loader";
+import Nav from "./Components/Nav";
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
 
-const TodoHome = React.lazy(() => import("./Components/TodoHome"));
+const TodoHome = React.lazy(() => import("./Components/Todo"));
 const Chatbot = React.lazy(() => import("./Components/Chatbot"));
 const Lambda = React.lazy(() => import("./Components/Lambda"));
 const PubSub = React.lazy(() => import("./Components/PubSub"));
@@ -55,42 +55,10 @@ const App = () => {
     Auth.currentCredentials().then((info) => {});
   }, []);
 
-  function testAnalyticsButton() {
-    Analytics.record({
-      name: "test button click",
-      metrics: { clickNumber: 1 },
-    });
-  }
-
   return (
     <Router>
       <div>
-        <Menu>
-          <Menu.Item
-            header
-          >{`Welcome ${userState?.user?.username}!`}</Menu.Item>
-          <Menu.Item>
-            <Link to="/">Todo</Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Link to="/chatbot">Chatbot</Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Link to="/lambda">Lambda</Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Link to="/pubsub">PubSub</Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Link to="/storage">Storage</Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Button onClick={testAnalyticsButton}>Test Analytics</Button>
-          </Menu.Item>
-          <Menu.Item position="right">
-            <AmplifySignOut />
-          </Menu.Item>
-        </Menu>
+        <Nav username={userState?.user?.username} />
 
         {/*
           A <Switch> looks through all its children <Route>
