@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API, DataStore, graphqlOperation } from "aws-amplify";
+import { DataStore, Hub } from "aws-amplify";
 // import { createTodo, deleteTodo } from "../../graphql/mutations";
 // import { listTodos } from "../../graphql/queries";
 import {
@@ -86,6 +86,33 @@ const TodoHome = () => {
   //   return () => subscription.unsubscribe();
   // }, []);
 
+  // DataStore subscription
+  useEffect(() => {
+    function handleSubscriptionUpdate(msg: any) {
+      if (msg.opType === "DELETE") {
+        setTodos((todos) => todos.filter((t) => t.id !== msg.element.id));
+      } else if (msg.opType === "INSERT") {
+        setTodos((todos) => [...todos, msg.element]);
+      }
+    }
+    const subscription = DataStore.observe(TodoModel).subscribe((msg) => {
+      handleSubscriptionUpdate(msg);
+    });
+    return subscription.unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    // Create listener
+    const listener = Hub.listen("datastore", async (hubData) => {
+      const { event, data } = hubData.payload;
+      console.log("Hub event:", event);
+      console.log("Hub data:", data);
+    });
+
+    // Remove listener
+    return listener;
+  }, []);
+
   function setInput(key: string, value: string) {
     setFormState({ ...formState, [key]: value });
   }
@@ -111,8 +138,6 @@ const TodoHome = () => {
       // const todoId = uuidv4();
 
       const todo = { id: uuidv4(), ...formState };
-
-      setTodos([...todos, todo]);
 
       setFormState(initialState);
 
@@ -157,7 +182,9 @@ const TodoHome = () => {
         <Header as="h1" icon textAlign="center">
           <Icon name="users" circular />
           <Header.Content>My Todos</Header.Content>
-          <Header sub>Simple Todo app using Amplify DataStore</Header>
+          <Header sub>
+            Amplify DataStore Demo (test offline + with multiple browsers!)
+          </Header>
         </Header>
         <Input
           onChange={(event) => setInput("name", event.target.value)}
