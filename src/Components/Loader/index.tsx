@@ -1,21 +1,15 @@
 import React from "react";
 import { Dimmer, Loader } from "semantic-ui-react";
+import { useStyles } from "./styles";
 
-const LoaderDemo = () => (
-  <Dimmer active style={styles.container}>
-    <Loader />
-  </Dimmer>
-);
+const LoaderDemo = () => {
+  const { container } = useStyles();
+
+  return (
+    <Dimmer active className={container}>
+      <Loader />
+    </Dimmer>
+  );
+};
 
 export default LoaderDemo;
-
-type Styles = {
-  container: React.CSSProperties;
-};
-
-const styles: Styles = {
-  container: {
-    width: "100%",
-    height: "100%",
-  },
-};

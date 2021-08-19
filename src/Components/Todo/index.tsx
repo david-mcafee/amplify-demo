@@ -15,6 +15,7 @@ import {
 } from "semantic-ui-react";
 import { v4 as uuidv4 } from "uuid";
 import { onCreateTodo, onDeleteTodo } from "../../graphql/subscriptions";
+import { useStyles } from "./styles";
 
 type Todo = {
   readonly id: string;
@@ -29,6 +30,8 @@ const initialTodoState: Array<Todo> = [];
 const TodoHome = () => {
   const [formState, setFormState] = useState(initialState);
   const [todos, setTodos] = useState(initialTodoState);
+
+  const { container, parentContainer } = useStyles();
 
   useEffect(() => {
     fetchTodos();
@@ -132,8 +135,8 @@ const TodoHome = () => {
   }
 
   return (
-    <div style={styles.parentContainer}>
-      <div style={styles.container}>
+    <div className={parentContainer}>
+      <div className={container}>
         <Header as="h1" icon textAlign="center">
           <Icon name="users" circular />
           <Header.Content>My Todos</Header.Content>
@@ -180,30 +183,6 @@ const TodoHome = () => {
       </div>
     </div>
   );
-};
-
-type Styles = {
-  container: React.CSSProperties;
-  parentContainer: React.CSSProperties;
-};
-
-const styles: Styles = {
-  container: {
-    width: 400,
-    margin: "0 auto",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    padding: 20,
-  },
-  parentContainer: {
-    width: "100%",
-    margin: "0 auto",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    padding: 20,
-  },
 };
 
 export default TodoHome;

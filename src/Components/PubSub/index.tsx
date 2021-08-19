@@ -18,8 +18,6 @@ import { AWSIoTProvider } from "@aws-amplify/pubsub";
 
 import UserContext from "../../UserContext";
 
-import { useStyles } from "./styles";
-
 // Apply plugin with configuration
 Amplify.addPluggable(
   new AWSIoTProvider({
@@ -52,8 +50,6 @@ const PubSubDemo = () => {
   const [messages, setMessages] = useState(initialMessageState);
 
   const userContext = useContext(UserContext);
-
-  const classes = useStyles();
 
   function onMessageReceived(data: any) {
     if (data?.value?.msg) {
@@ -106,7 +102,7 @@ const PubSubDemo = () => {
   }
 
   return (
-    <Container className={classes.test}>
+    <Container>
       <Container>
         <Header as="h1">
           Sign-in with a second account in another browser to test the chat!

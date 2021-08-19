@@ -3,6 +3,7 @@ import { Storage } from "aws-amplify";
 import { Button, Divider, Container, Header } from "semantic-ui-react";
 import Progress from "../Progress";
 import { v4 as uuidv4 } from "uuid";
+import { useStyles } from "./styles";
 
 const initialState: number = 0;
 
@@ -11,6 +12,8 @@ Storage.configure({ track: true });
 
 const StorageDemo = () => {
   const [uploadProgress, setUploadProgress] = useState(initialState);
+
+  const { container } = useStyles();
 
   const calculatePercent = (loaded: number, total: number) =>
     Math.floor((loaded / total) * 100);
@@ -57,7 +60,7 @@ const StorageDemo = () => {
   ) as React.MutableRefObject<HTMLInputElement>;
 
   return (
-    <Container style={styles.container}>
+    <Container className={container}>
       <Header as="h1">Lambda test</Header>
       <Button onClick={upload}>Upload text file</Button>
       <Divider />
@@ -75,15 +78,3 @@ const StorageDemo = () => {
 };
 
 export default StorageDemo;
-
-type Styles = {
-  container: React.CSSProperties;
-};
-
-const styles: Styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "10vh",
-  },
-};

@@ -1,8 +1,9 @@
 import { createUseStyles } from "react-jss";
 
 export const useStyles = createUseStyles({
-  test: {
-    backgroundColor: "blue",
-    color: "green",
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "10vh",
   },
 });

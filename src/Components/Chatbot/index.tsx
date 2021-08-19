@@ -17,7 +17,7 @@ import {
   ListDescription,
 } from "semantic-ui-react";
 import { v4 as uuidv4 } from "uuid";
-// import { createAppointment } from "./graphql/mutations";
+import { useStyles } from "./styles";
 
 type Appointment = {
   readonly id: string;
@@ -30,6 +30,7 @@ const appointmentsInitialState: Array<Appointment> = [];
 
 const Chatbot = () => {
   const [appointments, setAppointments] = useState(appointmentsInitialState);
+  const { parentContainer } = useStyles();
 
   useEffect(() => {
     fetchAppointments();
@@ -112,7 +113,7 @@ const Chatbot = () => {
   }
 
   return (
-    <Container style={styles.parentContainer}>
+    <Container className={parentContainer}>
       <Container>
         <AmplifyChatbot
           botName="ScheduleAppointment_dev"
@@ -152,21 +153,6 @@ const Chatbot = () => {
       </Container>
     </Container>
   );
-};
-
-type Styles = {
-  parentContainer: React.CSSProperties;
-};
-
-const styles = {
-  parentContainer: {
-    width: "100%",
-    margin: "0 auto",
-    display: "flex",
-    flexDirection: "space-between",
-    justifyContent: "center",
-    padding: 20,
-  },
 };
 
 export default Chatbot;
