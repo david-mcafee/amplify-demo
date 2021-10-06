@@ -15,7 +15,8 @@ type AppointmentMetaData = {
 export declare class Todo {
   readonly id: string;
   readonly name: string;
-  readonly description?: string;
+  readonly description: string;
+  readonly owner?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Todo, TodoMetaData>);

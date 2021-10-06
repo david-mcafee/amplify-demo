@@ -2,47 +2,15 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const syncTodos = /* GraphQL */ `
-  query SyncTodos(
-    $filter: ModelTodoFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncTodos(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        description
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
 export const getTodo = /* GraphQL */ `
   query GetTodo($id: ID!) {
     getTodo(id: $id) {
       id
       name
       description
-      _version
-      _deleted
-      _lastChangedAt
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -57,44 +25,11 @@ export const listTodos = /* GraphQL */ `
         id
         name
         description
-        _version
-        _deleted
-        _lastChangedAt
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncAppointments = /* GraphQL */ `
-  query SyncAppointments(
-    $filter: ModelAppointmentFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncAppointments(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        time
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -104,9 +39,6 @@ export const getAppointment = /* GraphQL */ `
       id
       name
       time
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -124,15 +56,11 @@ export const listAppointments = /* GraphQL */ `
         id
         name
         time
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
         owner
       }
       nextToken
-      startedAt
     }
   }
 `;

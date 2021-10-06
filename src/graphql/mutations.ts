@@ -11,12 +11,9 @@ export const createTodo = /* GraphQL */ `
       id
       name
       description
-      _version
-      _deleted
-      _lastChangedAt
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -29,12 +26,9 @@ export const updateTodo = /* GraphQL */ `
       id
       name
       description
-      _version
-      _deleted
-      _lastChangedAt
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -47,12 +41,9 @@ export const deleteTodo = /* GraphQL */ `
       id
       name
       description
-      _version
-      _deleted
-      _lastChangedAt
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -65,9 +56,6 @@ export const createAppointment = /* GraphQL */ `
       id
       name
       time
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -83,9 +71,6 @@ export const updateAppointment = /* GraphQL */ `
       id
       name
       time
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -101,9 +86,6 @@ export const deleteAppointment = /* GraphQL */ `
       id
       name
       time
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       owner

@@ -1,7 +1,8 @@
 type Todo @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String!
-  description: String
+  description: String!
+  owner: String
 }
 
 type Appointment @model @auth(rules: [{ allow: owner }]) {

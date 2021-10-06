@@ -22,15 +22,13 @@ type Todo = {
   readonly id: string;
   readonly name: string;
   readonly description: string;
-  readonly priority: string;
 };
 
 type InitialState = {
   readonly name: string;
   readonly description: string;
-  readonly priority: string;
 };
-const initialState: InitialState = { name: "", description: "", priority: "" };
+const initialState: InitialState = { name: "", description: "" };
 const initialTodoState: Array<Todo> = [];
 
 const TodoHome = () => {
@@ -63,7 +61,7 @@ const TodoHome = () => {
       },
     });
 
-    return () => subscription.unsubscribe();
+    return subscription.unsubscribe;
   }, []);
 
   // Subscribe to onDelete updates
@@ -182,9 +180,7 @@ const TodoHome = () => {
         <Header as="h1" icon textAlign="center">
           <Icon name="users" circular />
           <Header.Content>My Todos</Header.Content>
-          <Header sub>
-            Amplify DataStore Demo (test offline + with multiple browsers!)
-          </Header>
+          <Header sub>Amplify GraphQL API Demo</Header>
         </Header>
         <Input
           onChange={(event) => setInput("name", event.target.value)}
@@ -195,11 +191,6 @@ const TodoHome = () => {
           onChange={(event) => setInput("description", event.target.value)}
           value={formState.description}
           placeholder="Description"
-        />
-        <Input
-          onChange={(event) => setInput("priority", event.target.value)}
-          value={formState?.priority}
-          placeholder="Priority"
         />
         <Button onClick={addTodo}>Create Todo</Button>
         <List>
@@ -216,9 +207,6 @@ const TodoHome = () => {
                 </ListHeader>
                 <ListDescription>
                   <p>{todo.description}</p>
-                </ListDescription>
-                <ListDescription>
-                  <p>{todo?.priority}</p>
                 </ListDescription>
               </ListContent>
             </ListItem>
