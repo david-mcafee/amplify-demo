@@ -1,20 +1,5 @@
 {
   "api": {
-    "amplifydemoapi": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
-      "output": {
-        "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-            "userPoolConfig": {
-              "userPoolId": "authamplifydemo18fe868c"
-            }
-          },
-          "additionalAuthenticationProviders": []
-        }
-      }
-    },
     "demorestapi": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
