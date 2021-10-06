@@ -11,13 +11,11 @@ export const createTodo = /* GraphQL */ `
       id
       name
       description
-      priority
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -30,13 +28,11 @@ export const updateTodo = /* GraphQL */ `
       id
       name
       description
-      priority
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -49,67 +45,11 @@ export const deleteTodo = /* GraphQL */ `
       id
       name
       description
-      priority
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      owner
-    }
-  }
-`;
-export const createAppointment = /* GraphQL */ `
-  mutation CreateAppointment(
-    $input: CreateAppointmentInput!
-    $condition: ModelAppointmentConditionInput
-  ) {
-    createAppointment(input: $input, condition: $condition) {
-      id
-      name
-      time
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const updateAppointment = /* GraphQL */ `
-  mutation UpdateAppointment(
-    $input: UpdateAppointmentInput!
-    $condition: ModelAppointmentConditionInput
-  ) {
-    updateAppointment(input: $input, condition: $condition) {
-      id
-      name
-      time
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const deleteAppointment = /* GraphQL */ `
-  mutation DeleteAppointment(
-    $input: DeleteAppointmentInput!
-    $condition: ModelAppointmentConditionInput
-  ) {
-    deleteAppointment(input: $input, condition: $condition) {
-      id
-      name
-      time
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      owner
     }
   }
 `;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { DataStore, Hub } from "aws-amplify";
-// import { createTodo, deleteTodo } from "../../graphql/mutations";
-// import { listTodos } from "../../graphql/queries";
+import { API, graphqlOperation, Hub } from "aws-amplify";
+import { createTodo, deleteTodo } from "../../graphql/mutations";
+import { listTodos } from "../../graphql/queries";
 import {
   Button,
   Header,
@@ -14,9 +14,9 @@ import {
   ListDescription,
 } from "semantic-ui-react";
 import { v4 as uuidv4 } from "uuid";
-// import { onCreateTodo, onDeleteTodo } from "../../graphql/subscriptions";
+import { onCreateTodo, onDeleteTodo } from "../../graphql/subscriptions";
 import { useStyles } from "./styles";
-import { Todo as TodoModel } from "../../models";
+// import { Todo as TodoModel } from "../../models";
 
 type Todo = {
   readonly id: string;
@@ -44,62 +44,62 @@ const TodoHome = () => {
   }, []);
 
   // Subscribe to onCreate updates
-  // useEffect(() => {
-  //   // https://github.com/aws-amplify/amplify-js/issues/7589
-  //   // @ts-ignore
-  //   const subscription = API.graphql(graphqlOperation(onCreateTodo)).subscribe({
-  //     // TODO: add type
-  //     next: (todoData: any) => {
-  //       console.log(todoData);
-  //       const todo = todoData?.value?.data?.onCreateTodo;
+  useEffect(() => {
+    // https://github.com/aws-amplify/amplify-js/issues/7589
+    // @ts-ignore
+    const subscription = API.graphql(graphqlOperation(onCreateTodo)).subscribe({
+      // TODO: add type
+      next: (todoData: any) => {
+        console.log(todoData);
+        const todo = todoData?.value?.data?.onCreateTodo;
 
-  //       // Only add todo if it doesn't already exist in state (i.e. another user)
-  //       if (todos.filter((t) => t.id === todo.id).length === 0) {
-  //         setTodos([...todos, todo]);
-  //       }
-  //     },
-  //     error: (error: any) => {
-  //       console.log(error);
-  //     },
-  //   });
+        // Only add todo if it doesn't already exist in state (i.e. another user)
+        if (todos.filter((t) => t.id === todo.id).length === 0) {
+          setTodos([...todos, todo]);
+        }
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
 
-  //   return () => subscription.unsubscribe();
-  // }, []);
+    return () => subscription.unsubscribe();
+  }, []);
 
   // Subscribe to onDelete updates
-  // useEffect(() => {
-  //   // https://github.com/aws-amplify/amplify-js/issues/7589
-  //   // @ts-ignore
-  //   const subscription = API.graphql(graphqlOperation(onDeleteTodo)).subscribe({
-  //     // TODO: add type
-  //     next: (todoData: any) => {
-  //       console.log(todoData);
-  //       const todo = todoData?.value?.data?.onDeleteTodo;
-  //       // TODO: don't always perform this operation (i.e. another user has removed todo)
-  //       setTodos(todos.filter((t) => t.id !== todo.id));
-  //     },
-  //     error: (error: any) => {
-  //       console.log(error);
-  //     },
-  //   });
+  useEffect(() => {
+    // https://github.com/aws-amplify/amplify-js/issues/7589
+    // @ts-ignore
+    const subscription = API.graphql(graphqlOperation(onDeleteTodo)).subscribe({
+      // TODO: add type
+      next: (todoData: any) => {
+        console.log(todoData);
+        const todo = todoData?.value?.data?.onDeleteTodo;
+        // TODO: don't always perform this operation (i.e. another user has removed todo)
+        setTodos(todos.filter((t) => t.id !== todo.id));
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
 
-  //   return () => subscription.unsubscribe();
-  // }, []);
+    return () => subscription.unsubscribe();
+  }, []);
 
   // DataStore subscription
-  useEffect(() => {
-    function handleSubscriptionUpdate(msg: any) {
-      if (msg.opType === "DELETE") {
-        setTodos((todos) => todos.filter((t) => t.id !== msg.element.id));
-      } else if (msg.opType === "INSERT") {
-        setTodos((todos) => [...todos, msg.element]);
-      }
-    }
-    const subscription = DataStore.observe(TodoModel).subscribe((msg) => {
-      handleSubscriptionUpdate(msg);
-    });
-    return subscription.unsubscribe;
-  }, []);
+  // useEffect(() => {
+  //   function handleSubscriptionUpdate(msg: any) {
+  //     if (msg.opType === "DELETE") {
+  //       setTodos((todos) => todos.filter((t) => t.id !== msg.element.id));
+  //     } else if (msg.opType === "INSERT") {
+  //       setTodos((todos) => [...todos, msg.element]);
+  //     }
+  //   }
+  //   const subscription = DataStore.observe(TodoModel).subscribe((msg) => {
+  //     handleSubscriptionUpdate(msg);
+  //   });
+  //   return subscription.unsubscribe;
+  // }, []);
 
   useEffect(() => {
     // Create listener
@@ -119,9 +119,9 @@ const TodoHome = () => {
 
   async function fetchTodos() {
     try {
-      // const todoData: any = await API.graphql(graphqlOperation(listTodos));
-      // const todos = todoData.data.listTodos.items;
-      const todos: any = await DataStore.query(TodoModel);
+      const todoData: any = await API.graphql(graphqlOperation(listTodos));
+      const todos = todoData.data.listTodos.items;
+      // const todos: any = await DataStore.query(TodoModel);
       setTodos(todos);
     } catch (err) {
       console.log("error fetching todos");
@@ -141,12 +141,12 @@ const TodoHome = () => {
 
       setFormState(initialState);
 
-      // await API.graphql(graphqlOperation(createTodo, { input: { ...todo } }));
-      await DataStore.save(
-        new TodoModel({
-          ...todo,
-        })
-      );
+      await API.graphql(graphqlOperation(createTodo, { input: { ...todo } }));
+      // await DataStore.save(
+      //   new TodoModel({
+      //     ...todo,
+      //   })
+      // );
     } catch (err) {
       // If there was an error, fetch todos because local state is not correct
       fetchTodos();
@@ -165,10 +165,10 @@ const TodoHome = () => {
   async function removeTodo(todo: any) {
     try {
       setTodos(todos.filter((t) => t.id !== todo.id));
-      // await API.graphql(
-      //   graphqlOperation(deleteTodo, { input: { id: todoId } })
-      // );
-      await DataStore.delete(todo);
+      await API.graphql(
+        graphqlOperation(deleteTodo, { input: { id: todo.id } })
+      );
+      // await DataStore.delete(todo);
     } catch (err) {
       // If there was an error, fetch todos because local state is not correct
       fetchTodos();

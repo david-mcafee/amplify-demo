@@ -19,13 +19,11 @@ export const syncTodos = /* GraphQL */ `
         id
         name
         description
-        priority
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        owner
       }
       nextToken
       startedAt
@@ -38,13 +36,11 @@ export const getTodo = /* GraphQL */ `
       id
       name
       description
-      priority
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -59,80 +55,11 @@ export const listTodos = /* GraphQL */ `
         id
         name
         description
-        priority
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        owner
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncAppointments = /* GraphQL */ `
-  query SyncAppointments(
-    $filter: ModelAppointmentFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncAppointments(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        time
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getAppointment = /* GraphQL */ `
-  query GetAppointment($id: ID!) {
-    getAppointment(id: $id) {
-      id
-      name
-      time
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const listAppointments = /* GraphQL */ `
-  query ListAppointments(
-    $filter: ModelAppointmentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listAppointments(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        time
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        owner
       }
       nextToken
       startedAt
