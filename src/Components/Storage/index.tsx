@@ -5,7 +5,6 @@ import {
   Divider,
   Container,
   Header,
-  Icon,
   List,
   ListContent,
   ListHeader,
