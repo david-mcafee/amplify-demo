@@ -25,9 +25,16 @@ const initialFileState: Array<File> = [];
 // Track all events
 Storage.configure({ track: true });
 
+let cancelUpload = () => {};
+let pauseUpload = () => {};
+let resumeUpload = () => {};
+
 const StorageDemo = () => {
+  // let cancelUploadCallback = useRef(() => {});
   const [uploadProgress, setUploadProgress] = useState(initialState);
   const [files, setFiles] = useState(initialFileState);
+  const [resumableUploadButtonDisabled, setResumableUploadButtonDisabled] =
+    useState(true);
 
   useEffect(() => {
     fetchFiles();
@@ -60,16 +67,40 @@ const StorageDemo = () => {
     const fileUUID = uuidv4();
     const file = e.target.files[0];
     try {
-      const response = await Storage.put(`${file.name}-${fileUUID}`, file, {
+      const upload = await Storage.put(`${file.name}-${fileUUID}`, file, {
+        resumable: true,
         // track: true, // Can track a specific event
         metadata: { id: fileUUID }, // (map<String>) A map of metadata to store with the object in S3.
         progressCallback(progress: any) {
           console.log(`Uploaded: ${progress.loaded}/${progress.total}`);
           setUploadProgress(calculatePercent(progress.loaded, progress.total));
         },
+        errorCallback: (err: any) => {
+          console.error("Unexpected error while uploading", err);
+          setResumableUploadButtonDisabled(true);
+        },
+        completeCallback: (event: any) => {
+          console.log(`Successfully uploaded ${event.key}`);
+          setResumableUploadButtonDisabled(true);
+          setUploadProgress(0);
+        },
       });
 
-      if (response) setUploadProgress(0);
+      if (upload) {
+        setResumableUploadButtonDisabled(false);
+        cancelUpload = () => {
+          console.log("cancel upload");
+          Storage.cancel(upload);
+        };
+        pauseUpload = () => {
+          console.log("pause upload");
+          upload.pause();
+        };
+        resumeUpload = () => {
+          console.log("resume upload");
+          upload.resume();
+        };
+      }
     } catch (error) {
       console.log("Error uploading file: ", error);
     }
@@ -118,13 +149,24 @@ const StorageDemo = () => {
       <input ref={inputRef} type="file" hidden onChange={uploadFile} />
       <Divider />
       <Progress uploadProgress={uploadProgress} />
+      <Divider />
+      <Button disabled={resumableUploadButtonDisabled} onClick={pauseUpload}>
+        Pause Upload
+      </Button>
+      <Divider />
+      <Button disabled={resumableUploadButtonDisabled} onClick={resumeUpload}>
+        Resume Upload
+      </Button>
+      <Divider />
+      <Button disabled={resumableUploadButtonDisabled} onClick={cancelUpload}>
+        Cancel Upload
+      </Button>
+      <Divider />
       <List>
         {files.map((file, index) => (
           <ListItem key={file.key ? file.key : index}>
             <ListContent floated="right">
-              <Button onClick={() => copyFile(file)} icon circular>
-                <Icon name="caret right" color="red" />
-              </Button>
+              <Button onClick={() => copyFile(file)}>Copy</Button>
             </ListContent>
             <ListContent>
               <ListHeader>
