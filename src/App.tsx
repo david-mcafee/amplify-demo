@@ -6,6 +6,7 @@ import UserContext from "./UserContext";
 import Loader from "./Components/Loader";
 import Nav from "./Components/Nav";
 import Banner from "./Components/Banner";
+import ErrorBoundary from "./Components/ErrorBoundary";
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
@@ -120,29 +121,38 @@ const App = () => {
         <Switch>
           <Route exact path="/">
             <React.Suspense fallback={<Loader />}>
-              <TodoHome />
+              <ErrorBoundary>
+                <TodoHome />
+              </ErrorBoundary>
             </React.Suspense>
           </Route>
           <Route path="/chatbot">
             <React.Suspense fallback={<Loader />}>
-              <Chatbot />
+              <ErrorBoundary>
+                <Chatbot />
+              </ErrorBoundary>
             </React.Suspense>
           </Route>
           <Route path="/lambda">
             <React.Suspense fallback={<Loader />}>
-              <Lambda />
+              <ErrorBoundary>
+                <Lambda />
+              </ErrorBoundary>
             </React.Suspense>
           </Route>
           <Route path="/pubsub">
             <React.Suspense fallback={<Loader />}>
-              <UserContext.Provider value={userState}>
+              <ErrorBoundary>
                 <PubSub />
-              </UserContext.Provider>
+              </ErrorBoundary>
+              <UserContext.Provider value={userState}></UserContext.Provider>
             </React.Suspense>
           </Route>
           <Route path="/storage">
             <React.Suspense fallback={<Loader />}>
-              <Storage />
+              <ErrorBoundary>
+                <Storage />
+              </ErrorBoundary>
             </React.Suspense>
           </Route>
         </Switch>
