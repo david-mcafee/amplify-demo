@@ -5,6 +5,7 @@ import { withAuthenticator } from "@aws-amplify/ui-react";
 import UserContext from "./UserContext";
 import Loader from "./Components/Loader";
 import Nav from "./Components/Nav";
+import Banner from "./Components/Banner";
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
@@ -106,6 +107,7 @@ const App = () => {
   return (
     <Router>
       <div>
+        <Banner />
         <Nav username={userState?.user?.username} />
 
         {/*
