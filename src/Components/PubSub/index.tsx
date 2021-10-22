@@ -107,6 +107,10 @@ const PubSubDemo = () => {
         <Header as="h1">
           Sign-in with a second account in another browser to test the chat!
         </Header>
+        <Header as="h2">
+          TODO: update iot policy to fix subscription error (broken when testing
+          another bug)
+        </Header>
         <Container>
           <Input
             onChange={(event) => setInput("message", event.target.value)}
