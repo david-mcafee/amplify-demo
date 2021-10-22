@@ -5,6 +5,7 @@ import {
   Divider,
   Container,
   Header,
+  Icon,
   List,
   ListContent,
   ListHeader,
@@ -134,6 +135,14 @@ const StorageDemo = () => {
     null
   ) as React.MutableRefObject<HTMLInputElement>;
 
+  async function deleteFile(file: any) {
+    try {
+      await Storage.remove(file.key);
+    } catch (error) {
+      console.log("error deleting file", error);
+    }
+  }
+
   return (
     <Container className={container}>
       <Header as="h1">Lambda test</Header>
@@ -165,6 +174,9 @@ const StorageDemo = () => {
         {files.map((file, index) => (
           <ListItem key={file.key ? file.key : index}>
             <ListContent floated="right">
+              <Button onClick={() => deleteFile(file)} icon circular>
+                <Icon name="delete" color="red" />
+              </Button>
               <Button onClick={() => copyFile(file)}>Copy</Button>
             </ListContent>
             <ListContent>
