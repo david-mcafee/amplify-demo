@@ -60,6 +60,8 @@ const StorageDemo = () => {
       console.log(response);
     } catch (error) {
       console.log("Error uploading text file: ", error);
+    } finally {
+      fetchFiles();
     }
   }
 
@@ -103,6 +105,8 @@ const StorageDemo = () => {
       }
     } catch (error) {
       console.log("Error uploading file: ", error);
+    } finally {
+      fetchFiles();
     }
   }
 
@@ -140,6 +144,8 @@ const StorageDemo = () => {
       await Storage.remove(file.key);
     } catch (error) {
       console.log("error deleting file", error);
+    } finally {
+      fetchFiles();
     }
   }
 
