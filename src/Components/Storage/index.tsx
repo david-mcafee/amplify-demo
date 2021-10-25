@@ -149,6 +149,20 @@ const StorageDemo = () => {
     }
   }
 
+  async function downloadFile(file: any) {
+    try {
+      const signedUrl = await Storage.get(file.key);
+      const a = document.createElement("a");
+      a.href = signedUrl;
+      a.download = file.key;
+      a.click();
+    } catch (error) {
+      console.log("error downloading file", error);
+    } finally {
+      fetchFiles();
+    }
+  }
+
   return (
     <Container className={container}>
       <Header as="h1">Lambda test</Header>
@@ -182,6 +196,9 @@ const StorageDemo = () => {
             <ListContent floated="right">
               <Button onClick={() => deleteFile(file)} icon circular>
                 <Icon name="delete" color="red" />
+              </Button>
+              <Button onClick={() => downloadFile(file)} icon circular>
+                Download
               </Button>
               <Button onClick={() => copyFile(file)}>Copy</Button>
             </ListContent>
