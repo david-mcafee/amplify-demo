@@ -140,7 +140,7 @@ export type ModelIDInput = {
 
 export type ModelTodoConnection = {
   __typename: "ModelTodoConnection",
-  items?:  Array<Todo | null > | null,
+  items:  Array<Todo >,
   nextToken?: string | null,
 };
 
@@ -155,7 +155,7 @@ export type ModelAppointmentFilterInput = {
 
 export type ModelAppointmentConnection = {
   __typename: "ModelAppointmentConnection",
-  items?:  Array<Appointment | null > | null,
+  items:  Array<Appointment >,
   nextToken?: string | null,
 };
 
@@ -286,7 +286,7 @@ export type ListTodosQueryVariables = {
 export type ListTodosQuery = {
   listTodos?:  {
     __typename: "ModelTodoConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "Todo",
       id: string,
       name: string,
@@ -294,7 +294,7 @@ export type ListTodosQuery = {
       owner?: string | null,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };
@@ -324,7 +324,7 @@ export type ListAppointmentsQueryVariables = {
 export type ListAppointmentsQuery = {
   listAppointments?:  {
     __typename: "ModelAppointmentConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "Appointment",
       id: string,
       name: string,
@@ -332,7 +332,7 @@ export type ListAppointmentsQuery = {
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
-    } | null > | null,
+    } >,
     nextToken?: string | null,
   } | null,
 };

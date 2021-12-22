@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Lex chatbot creation from Amplify CLI",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"7.6.4\",\"stackType\":\"interactions-Lex\",\"metadata\":{}}",
   "Parameters": {
     "authRoleName": {
       "Type": "String"
