@@ -9,7 +9,7 @@ import Banner from "./Components/Banner";
 import ErrorBoundary from "./Components/ErrorBoundary";
 import { AmplifyProvider } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import { theme } from "./theme";
+// import { theme } from "./theme";
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
@@ -110,7 +110,7 @@ const App = () => {
   }, []);
 
   return (
-    <AmplifyProvider theme={theme}>
+    <AmplifyProvider>
       <Router>
         <div>
           <Banner />
