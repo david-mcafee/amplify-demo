@@ -1,20 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import {
-  Button,
-  Container,
-  Header,
-  Input,
-  List,
-  ListItem,
-  ListContent,
-  ListHeader,
-  ListDescription,
-} from "semantic-ui-react";
+import { useContext, useEffect, useState } from "react";
 
 import { v4 as uuidv4 } from "uuid";
 
 import Amplify, { PubSub } from "aws-amplify";
 import { AWSIoTProvider } from "@aws-amplify/pubsub";
+import {
+  Card,
+  Collection,
+  Button,
+  Heading,
+  TextField,
+  Text,
+} from "@aws-amplify/ui-react";
 
 import UserContext from "../../UserContext";
 
@@ -102,39 +99,40 @@ const PubSubDemo = () => {
   }
 
   return (
-    <Container>
-      <Container>
-        <Header as="h1">
+    <Card>
+      <Card>
+        <Heading as="h1">
           Sign-in with a second account in another browser to test the chat!
-        </Header>
-        <Header as="h2">
+        </Heading>
+        <Heading as="h2">
           TODO: update iot policy to fix subscription error (broken when testing
           another bug)
-        </Header>
-        <Container>
-          <Input
-            onChange={(event) => setInput("message", event.target.value)}
+        </Heading>
+        <Card>
+          <TextField
+            label="Message"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setInput("message", event.target.value)
+            }
             value={formState.message}
             placeholder="Message"
           />
           <Button onClick={addMessage}>Add message</Button>
-        </Container>
-        <List>
-          {messages?.map((message, index) => (
-            <ListItem key={index}>
-              <ListContent>
-                <ListHeader>
-                  <p>{message?.message}</p>
-                </ListHeader>
-                <ListDescription>
-                  <p>{message?.username}</p>
-                </ListDescription>
-              </ListContent>
-            </ListItem>
-          ))}
-        </List>
-      </Container>
-    </Container>
+        </Card>
+        <Collection type="list" items={messages}>
+          {(message, index) => (
+            <Card key={index}>
+              <Heading>
+                <p>{message?.message}</p>
+              </Heading>
+              <Text>
+                <p>{message?.username}</p>
+              </Text>
+            </Card>
+          )}
+        </Collection>
+      </Card>
+    </Card>
   );
 };
 

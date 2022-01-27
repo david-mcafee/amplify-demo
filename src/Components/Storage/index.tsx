@@ -1,19 +1,16 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Storage } from "aws-amplify";
-import {
-  Button,
-  Divider,
-  Container,
-  Header,
-  Icon,
-  List,
-  ListContent,
-  ListHeader,
-  ListItem,
-} from "semantic-ui-react";
 import Progress from "../Progress";
 import { v4 as uuidv4 } from "uuid";
 import { useStyles } from "./styles";
+import {
+  Button,
+  Card,
+  Collection,
+  Divider,
+  Heading,
+  Icon,
+} from "@aws-amplify/ui-react";
 
 type File = {
   key?: string;
@@ -164,14 +161,14 @@ const StorageDemo = () => {
   }
 
   return (
-    <Container className={container}>
-      <Header as="h1">Lambda test</Header>
+    <Card className={container}>
+      <Heading as="h1">Lambda test</Heading>
       <Button onClick={upload}>Upload text file</Button>
       <Divider />
       <Button
-        content="Choose File"
-        labelPosition="left"
-        icon="file"
+        // content="Choose File"
+        // labelPosition="left"
+        // icon="file"
         onClick={() => inputRef.current.click()}
       />
       <input ref={inputRef} type="file" hidden onChange={uploadFile} />
@@ -190,27 +187,25 @@ const StorageDemo = () => {
         Cancel Upload
       </Button>
       <Divider />
-      <List>
-        {files.map((file, index) => (
-          <ListItem key={file.key ? file.key : index}>
-            <ListContent floated="right">
-              <Button onClick={() => deleteFile(file)} icon circular>
-                <Icon name="delete" color="red" />
+      <Collection type="list" items={files}>
+        {(file, index) => (
+          <Card key={file.key ? file.key : index}>
+            <Card>
+              <Button onClick={() => deleteFile(file)}>
+                {/* <Icon name="delete" color="red" /> */}
               </Button>
-              <Button onClick={() => downloadFile(file)} icon circular>
-                Download
-              </Button>
+              <Button onClick={() => downloadFile(file)}>Download</Button>
               <Button onClick={() => copyFile(file)}>Copy</Button>
-            </ListContent>
-            <ListContent>
-              <ListHeader>
+            </Card>
+            <Card>
+              <Heading>
                 <p>{file.key}</p>
-              </ListHeader>
-            </ListContent>
-          </ListItem>
-        ))}
-      </List>
-    </Container>
+              </Heading>
+            </Card>
+          </Card>
+        )}
+      </Collection>
+    </Card>
   );
 };
 
