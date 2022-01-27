@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Amplify, { Analytics, Auth } from "aws-amplify";
-import { withAuthenticator } from "@aws-amplify/ui-react";
+import { withAuthenticator } from "@aws-amplify/ui-react/legacy";
 import UserContext from "./UserContext";
 import Loader from "./Components/Loader";
 import Nav from "./Components/Nav";
@@ -16,6 +16,7 @@ const Chatbot = React.lazy(() => import("./Components/Chatbot"));
 const Lambda = React.lazy(() => import("./Components/Lambda"));
 const PubSub = React.lazy(() => import("./Components/PubSub"));
 const Storage = React.lazy(() => import("./Components/Storage"));
+const AmplifyUI = React.lazy(() => import("./Components/AmplifyUI"));
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -152,6 +153,13 @@ const App = () => {
             <React.Suspense fallback={<Loader />}>
               <ErrorBoundary>
                 <Storage />
+              </ErrorBoundary>
+            </React.Suspense>
+          </Route>
+          <Route path="/amplify-ui">
+            <React.Suspense fallback={<Loader />}>
+              <ErrorBoundary>
+                <AmplifyUI />
               </ErrorBoundary>
             </React.Suspense>
           </Route>

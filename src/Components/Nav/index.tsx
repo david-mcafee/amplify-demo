@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Menu } from "semantic-ui-react";
 import { Analytics } from "aws-amplify";
-import { AmplifySignOut } from "@aws-amplify/ui-react";
+import { AmplifySignOut } from "@aws-amplify/ui-react/legacy";
 import { useStyles } from "./styles";
 
 type NavProps = {
@@ -36,6 +36,9 @@ const Nav = ({ username }: NavProps) => {
       </Menu.Item>
       <Menu.Item>
         <Link to="/storage">Storage</Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to="/amplify-ui">Amplify UI</Link>
       </Menu.Item>
       <Menu.Item>
         <Button onClick={testAnalyticsButton}>Test Analytics</Button>
