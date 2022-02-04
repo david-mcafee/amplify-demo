@@ -7,7 +7,7 @@ import Loader from "./Components/Loader";
 import Nav from "./Components/Nav";
 import Banner from "./Components/Banner";
 import ErrorBoundary from "./Components/ErrorBoundary";
-import { AmplifyProvider } from "@aws-amplify/ui-react";
+import { AmplifyProvider, Divider } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 // import { theme } from "./theme";
 
@@ -115,7 +115,7 @@ const App = () => {
         <div>
           <Banner />
           <Nav username={userState?.user?.username} />
-
+          <Divider orientation="horizontal" />
           {/*
           A <Switch> looks through all its children <Route>
           elements and renders the first one whose path
