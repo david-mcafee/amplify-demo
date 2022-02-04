@@ -21,7 +21,7 @@ const Nav = ({ username }: NavProps) => {
 
   // <div className={navContainer}>
   return (
-    <View direction="column" position="fixed" width={"100%"}>
+    <View position={"sticky"} top={0}>
       <Banner />
       <Card width={"100%"} variation={"elevated"}>
         <Flex

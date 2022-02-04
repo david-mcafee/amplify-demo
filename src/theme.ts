@@ -16,5 +16,18 @@ export const theme: Theme = {
         static: { value: "Raleway, sans-serif" },
       },
     },
+    // components: {
+    //   card: {
+    //     // You can reference other tokens
+    //     backgroundColor: { value: "yellow" },
+    //     outlined: {
+    //       // Or use explicit values
+    //       borderWidth: { value: "10px" },
+    //     },
+    //     elevated: {
+    //       boxShadow: { value: "{shadows.large.value}" },
+    //     },
+    //   },
+    // },
   },
 };
