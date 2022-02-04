@@ -8,5 +8,6 @@ export const useStyles = createUseStyles({
     height: "25px",
     backgroundColor: "black",
     color: "white",
+    // position: "fixed",
   },
 });
