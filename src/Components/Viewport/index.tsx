@@ -3,21 +3,26 @@
 // import { useStyles } from "./styles";
 // import { Link } from "react-router-dom";
 // import { Button, Card, Divider, Flex, View } from "@aws-amplify/ui-react";
-import { View } from "@aws-amplify/ui-react";
+import { Flex } from "@aws-amplify/ui-react";
 
 type ViewportProps = {};
 
 const Viewport: React.FC<ViewportProps> = ({ children }) => {
   return (
-    <View
+    <Flex
       direction="column"
-      height={"100%"}
-      width={"100%"}
-      backgroundColor={"red"}
+      minHeight={"100vh"}
+      width={"100vw"}
+      backgroundColor={"rgb(159, 255, 128)"}
+      alignItems={"center"}
+      padding={"2rem"}
     >
       {children}
-    </View>
+    </Flex>
   );
 };
 
 export default Viewport;
+
+// rgb light grey
+// rgb(245, 245, 245)

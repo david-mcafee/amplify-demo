@@ -2,7 +2,14 @@ import { Analytics } from "aws-amplify";
 import { AmplifySignOut } from "@aws-amplify/ui-react/legacy";
 // import { useStyles } from "./styles";
 import { Link } from "react-router-dom";
-import { Button, Card, Divider, Flex, View } from "@aws-amplify/ui-react";
+import {
+  Badge,
+  Button,
+  Card,
+  Divider,
+  Flex,
+  View,
+} from "@aws-amplify/ui-react";
 import Banner from "../Banner";
 
 type NavProps = {
@@ -29,7 +36,7 @@ const Nav = ({ username }: NavProps) => {
           alignItems="center"
           justifyContent="space-between"
         >
-          <div>{`Welcome ${username}!`}</div>
+          <Badge variation="info">{`Welcome ${username}!`}</Badge>
           <Divider orientation="vertical" />
           <Flex alignItems="center" justifyContent="center">
             <Link to="/">GraphQL API</Link>
