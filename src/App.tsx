@@ -4,9 +4,12 @@ import Amplify, { Analytics, Auth } from "aws-amplify";
 import { withAuthenticator } from "@aws-amplify/ui-react/legacy";
 import UserContext from "./UserContext";
 import Loader from "./Components/Loader";
+import Viewport from "./Components/Viewport";
 import Nav from "./Components/Nav";
-import Banner from "./Components/Banner";
 import ErrorBoundary from "./Components/ErrorBoundary";
+import { AmplifyProvider } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+import { theme } from "./theme";
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
@@ -107,65 +110,70 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
-      <div>
-        <Banner />
-        <Nav username={userState?.user?.username} />
-
-        {/*
+    <AmplifyProvider theme={theme}>
+      <Router>
+        <div>
+          <Nav username={userState?.user?.username} />
+          {/* <Divider orientation="horizontal" /> */}
+          {/*
           A <Switch> looks through all its children <Route>
           elements and renders the first one whose path
           matches the current URL. Use a <Switch> any time
           you have multiple routes, but you want only one
           of them to render at a time
         */}
-        <Switch>
-          <Route exact path="/">
-            <React.Suspense fallback={<Loader />}>
-              <ErrorBoundary>
-                <TodoHome />
-              </ErrorBoundary>
-            </React.Suspense>
-          </Route>
-          <Route path="/chatbot">
-            <React.Suspense fallback={<Loader />}>
-              <ErrorBoundary>
-                <Chatbot />
-              </ErrorBoundary>
-            </React.Suspense>
-          </Route>
-          <Route path="/lambda">
-            <React.Suspense fallback={<Loader />}>
-              <ErrorBoundary>
-                <Lambda />
-              </ErrorBoundary>
-            </React.Suspense>
-          </Route>
-          <Route path="/pubsub">
-            <React.Suspense fallback={<Loader />}>
-              <ErrorBoundary>
-                <PubSub />
-              </ErrorBoundary>
-              <UserContext.Provider value={userState}></UserContext.Provider>
-            </React.Suspense>
-          </Route>
-          <Route path="/storage">
-            <React.Suspense fallback={<Loader />}>
-              <ErrorBoundary>
-                <Storage />
-              </ErrorBoundary>
-            </React.Suspense>
-          </Route>
-          <Route path="/amplify-ui">
-            <React.Suspense fallback={<Loader />}>
-              <ErrorBoundary>
-                <AmplifyUI />
-              </ErrorBoundary>
-            </React.Suspense>
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+          <Viewport>
+            <Switch>
+              <Route exact path="/">
+                <React.Suspense fallback={<Loader />}>
+                  <ErrorBoundary>
+                    <TodoHome />
+                  </ErrorBoundary>
+                </React.Suspense>
+              </Route>
+              <Route path="/chatbot">
+                <React.Suspense fallback={<Loader />}>
+                  <ErrorBoundary>
+                    <Chatbot />
+                  </ErrorBoundary>
+                </React.Suspense>
+              </Route>
+              <Route path="/lambda">
+                <React.Suspense fallback={<Loader />}>
+                  <ErrorBoundary>
+                    <Lambda />
+                  </ErrorBoundary>
+                </React.Suspense>
+              </Route>
+              <Route path="/pubsub">
+                <React.Suspense fallback={<Loader />}>
+                  <ErrorBoundary>
+                    <PubSub />
+                  </ErrorBoundary>
+                  <UserContext.Provider
+                    value={userState}
+                  ></UserContext.Provider>
+                </React.Suspense>
+              </Route>
+              <Route path="/storage">
+                <React.Suspense fallback={<Loader />}>
+                  <ErrorBoundary>
+                    <Storage />
+                  </ErrorBoundary>
+                </React.Suspense>
+              </Route>
+              <Route path="/amplify-ui">
+                <React.Suspense fallback={<Loader />}>
+                  <ErrorBoundary>
+                    <AmplifyUI />
+                  </ErrorBoundary>
+                </React.Suspense>
+              </Route>
+            </Switch>
+          </Viewport>
+        </div>
+      </Router>
+    </AmplifyProvider>
   );
 };
 

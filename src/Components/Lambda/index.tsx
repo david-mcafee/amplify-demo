@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { API } from "aws-amplify";
-import { Container, Header } from "semantic-ui-react";
+import { Card, Heading } from "@aws-amplify/ui-react";
 
 const initialState = "Loading...";
 
@@ -42,10 +42,10 @@ const Lambda = () => {
   });
 
   return (
-    <Container>
-      <Header as="h1">Lambda test</Header>
+    <Card>
+      <Heading as="h1">Lambda test</Heading>
       <p>{response}</p>
-    </Container>
+    </Card>
   );
 };
 

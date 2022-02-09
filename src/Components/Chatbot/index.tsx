@@ -1,23 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { ChatResult } from "@aws-amplify/ui-components/dist/types/common/types/interactions-types";
 import { createAppointment, deleteAppointment } from "../../graphql/mutations";
 import { listAppointments } from "../../graphql/queries";
 import { AmplifyChatbot } from "@aws-amplify/ui-react/legacy";
-import {
-  Button,
-  Container,
-  Divider,
-  Header,
-  Icon,
-  List,
-  ListContent,
-  ListItem,
-  ListHeader,
-  ListDescription,
-} from "semantic-ui-react";
 import { v4 as uuidv4 } from "uuid";
-import { useStyles } from "./styles";
+// import { useStyles } from "./styles";
+import {
+  Card,
+  Collection,
+  Heading,
+  Divider,
+  Text,
+} from "@aws-amplify/ui-react";
 
 type Appointment = {
   readonly id: string;
@@ -30,7 +25,7 @@ const appointmentsInitialState: Array<Appointment> = [];
 
 const Chatbot = () => {
   const [appointments, setAppointments] = useState(appointmentsInitialState);
-  const { parentContainer } = useStyles();
+  // const { parentCard } = useStyles();
 
   useEffect(() => {
     fetchAppointments();
@@ -113,8 +108,8 @@ const Chatbot = () => {
   }
 
   return (
-    <Container className={parentContainer}>
-      <Container>
+    <Card>
+      <Card>
         <AmplifyChatbot
           botName="ScheduleAppointment_dev"
           botTitle="Appointment booking"
@@ -122,36 +117,32 @@ const Chatbot = () => {
           conversationModeOn
           textEnabled
         />
-      </Container>
+      </Card>
       <Divider />
-      <Container>
-        <Header as="h1">Current Appointments:</Header>
-        <List>
-          {appointments.map((appointment, index) => (
-            <ListItem key={appointment.id ? appointment.id : index}>
-              <ListHeader>
-                <p>{appointment.name}</p>
-              </ListHeader>
-              <ListDescription>
-                <p>{appointment.owner}</p>
-              </ListDescription>
-              <ListDescription>
-                <p>{appointment.time}</p>
-              </ListDescription>
-              <ListContent>
-                <Button
-                  onClick={() => removeAppointment(appointment.id)}
-                  icon
-                  circular
-                >
-                  <Icon name="delete" color="red" />
-                </Button>
-              </ListContent>
-            </ListItem>
-          ))}
-        </List>
-      </Container>
-    </Container>
+      <Card>
+        <Heading as="h1">Current Appointments:</Heading>
+        <Collection type="list" items={appointments}>
+          {(item, index) => (
+            <Card key={item.id ? item.id : index}>
+              <Heading>
+                <p>{item.name}</p>
+              </Heading>
+              <Text>
+                <p>{item.owner}</p>
+              </Text>
+              <Text>
+                <p>{item.time}</p>
+              </Text>
+              <div>
+                <button onClick={() => removeAppointment(item.id)}>
+                  {/* <Icon name="delete" color="red" /> */}
+                </button>
+              </div>
+            </Card>
+          )}
+        </Collection>
+      </Card>
+    </Card>
   );
 };
 

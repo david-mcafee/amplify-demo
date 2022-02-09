@@ -1,12 +1,9 @@
-import React from "react";
-import { Progress } from "semantic-ui-react";
-
 type ProgressExampleProps = {
   readonly uploadProgress: number;
 };
 
 const ProgressExample = ({ uploadProgress }: ProgressExampleProps) => (
-  <Progress percent={uploadProgress} indicating={uploadProgress !== 0} />
+  <progress id="file" value={uploadProgress} max="100" />
 );
 
 export default ProgressExample;

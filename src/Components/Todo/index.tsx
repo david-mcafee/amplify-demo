@@ -1,18 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { API, graphqlOperation, Hub } from "aws-amplify";
-import { createTodo, deleteTodo } from "../../graphql/mutations";
+// import { createTodo, deleteTodo } from "../../graphql/mutations";
+import { createTodo } from "../../graphql/mutations";
 import { listTodos } from "../../graphql/queries";
-import {
-  Button,
-  Header,
-  Icon,
-  Input,
-  List,
-  ListItem,
-  ListContent,
-  ListHeader,
-  ListDescription,
-} from "semantic-ui-react";
 import { v4 as uuidv4 } from "uuid";
 import { onCreateTodo, onDeleteTodo } from "../../graphql/subscriptions";
 import { useStyles } from "./styles";
@@ -100,25 +90,25 @@ const TodoHome = () => {
   // }, []);
 
   useEffect(() => {
-    // Create listener
+    // Create ulener
     const listener = Hub.listen("datastore", async (hubData) => {
       const { event, data } = hubData.payload;
       console.log("Hub event:", event);
       console.log("Hub data:", data);
     });
 
-    // Remove listener
+    // Remove ulener
     return listener;
   }, []);
 
-  function setInput(key: string, value: string) {
+  function setinput(key: string, value: string) {
     setFormState({ ...formState, [key]: value });
   }
 
   async function fetchTodos() {
     try {
       const todoData: any = await API.graphql(graphqlOperation(listTodos));
-      const todos = todoData.data.listTodos.items;
+      const todos = todoData.data.ulTodos.items;
       // const todos: any = await DataStore.query(TodoModel);
       setTodos(todos);
     } catch (err) {
@@ -160,58 +150,58 @@ const TodoHome = () => {
   //   })
   // );
 
-  async function removeTodo(todo: any) {
-    try {
-      setTodos(todos.filter((t) => t.id !== todo.id));
-      await API.graphql(
-        graphqlOperation(deleteTodo, { input: { id: todo.id } })
-      );
-      // await DataStore.delete(todo);
-    } catch (err) {
-      // If there was an error, fetch todos because local state is not correct
-      fetchTodos();
-      console.log("error deleting todo:", err);
-    }
-  }
+  // async function removeTodo(todo: any) {
+  //   try {
+  //     setTodos(todos.filter((t) => t.id !== todo.id));
+  //     await API.graphql(
+  //       graphqlOperation(deleteTodo, { input: { id: todo.id } })
+  //     );
+  //     // await DataStore.delete(todo);
+  //   } catch (err) {
+  //     // If there was an error, fetch todos because local state is not correct
+  //     fetchTodos();
+  //     console.log("error deleting todo:", err);
+  //   }
+  // }
 
   return (
     <div className={parentContainer}>
       <div className={container}>
-        <Header as="h1" icon textAlign="center">
+        {/* <div as="h1" icon textAlign="center">
           <Icon name="users" circular />
-          <Header.Content>My Todos</Header.Content>
-          <Header sub>Amplify GraphQL API Demo</Header>
-        </Header>
-        <Input
-          onChange={(event) => setInput("name", event.target.value)}
+          <div.Content>My Todos</div.Content>
+          <div sub>Amplify GraphQL API Demo</div>
+        </div> */}
+        <input
+          onChange={(event) => setinput("name", event.target.value)}
           value={formState.name}
           placeholder="Name"
         />
-        <Input
-          onChange={(event) => setInput("description", event.target.value)}
+        <input
+          onChange={(event) => setinput("description", event.target.value)}
           value={formState.description}
           placeholder="Description"
         />
-        <Button onClick={addTodo}>Create Todo</Button>
-        <List>
+        <button onClick={addTodo}>Create Todo</button>
+        <ul>
           {todos.map((todo, index) => (
-            <ListItem key={todo.id ? todo.id : index}>
-              <ListContent floated="right">
-                <Button onClick={() => removeTodo(todo)} icon circular>
+            <li key={todo.id ? todo.id : index}>
+              {/* <div floated="right"> */}
+              {/* <button onClick={() => removeTodo(todo)} icon circular>
                   <Icon name="delete" color="red" />
-                </Button>
-              </ListContent>
-              <ListContent>
-                <ListHeader>
+                </button> */}
+              {/* </div> */}
+              <div>
+                <div>
                   <p>{todo.name}</p>
-                </ListHeader>
-                <ListDescription>
+                </div>
+                <div>
                   <p>{todo.description}</p>
-                </ListDescription>
-              </ListContent>
-            </ListItem>
+                </div>
+              </div>
+            </li>
           ))}
-        </List>
+        </ul>
       </div>
     </div>
   );

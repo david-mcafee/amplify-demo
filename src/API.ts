@@ -6,7 +6,6 @@ export type CreateTodoInput = {
   id?: string | null,
   name: string,
   description: string,
-  owner?: string | null,
 };
 
 export type ModelTodoConditionInput = {
@@ -62,16 +61,15 @@ export type Todo = {
   id: string,
   name: string,
   description: string,
-  owner?: string | null,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type UpdateTodoInput = {
   id: string,
   name?: string | null,
   description?: string | null,
-  owner?: string | null,
 };
 
 export type DeleteTodoInput = {
@@ -116,7 +114,6 @@ export type ModelTodoFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
-  owner?: ModelStringInput | null,
   and?: Array< ModelTodoFilterInput | null > | null,
   or?: Array< ModelTodoFilterInput | null > | null,
   not?: ModelTodoFilterInput | null,
@@ -140,7 +137,7 @@ export type ModelIDInput = {
 
 export type ModelTodoConnection = {
   __typename: "ModelTodoConnection",
-  items:  Array<Todo >,
+  items:  Array<Todo | null >,
   nextToken?: string | null,
 };
 
@@ -155,7 +152,7 @@ export type ModelAppointmentFilterInput = {
 
 export type ModelAppointmentConnection = {
   __typename: "ModelAppointmentConnection",
-  items:  Array<Appointment >,
+  items:  Array<Appointment | null >,
   nextToken?: string | null,
 };
 
@@ -170,9 +167,9 @@ export type CreateTodoMutation = {
     id: string,
     name: string,
     description: string,
-    owner?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -187,9 +184,9 @@ export type UpdateTodoMutation = {
     id: string,
     name: string,
     description: string,
-    owner?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -204,9 +201,9 @@ export type DeleteTodoMutation = {
     id: string,
     name: string,
     description: string,
-    owner?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -271,9 +268,9 @@ export type GetTodoQuery = {
     id: string,
     name: string,
     description: string,
-    owner?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -291,10 +288,10 @@ export type ListTodosQuery = {
       id: string,
       name: string,
       description: string,
-      owner?: string | null,
       createdAt: string,
       updatedAt: string,
-    } >,
+      owner?: string | null,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -332,7 +329,7 @@ export type ListAppointmentsQuery = {
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -347,9 +344,9 @@ export type OnCreateTodoSubscription = {
     id: string,
     name: string,
     description: string,
-    owner?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -363,9 +360,9 @@ export type OnUpdateTodoSubscription = {
     id: string,
     name: string,
     description: string,
-    owner?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -379,9 +376,9 @@ export type OnDeleteTodoSubscription = {
     id: string,
     name: string,
     description: string,
-    owner?: string | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 

@@ -1,14 +1,13 @@
-import React from "react";
-import { Dimmer, Loader } from "semantic-ui-react";
 import { useStyles } from "./styles";
+import { Loader } from "@aws-amplify/ui-react";
 
 const LoaderDemo = () => {
   const { container } = useStyles();
 
   return (
-    <Dimmer active className={container}>
-      <Loader />
-    </Dimmer>
+    <div className={container}>
+      <Loader size="large" />
+    </div>
   );
 };
 

@@ -1,16 +1,23 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Button, Menu } from "semantic-ui-react";
 import { Analytics } from "aws-amplify";
 import { AmplifySignOut } from "@aws-amplify/ui-react/legacy";
-import { useStyles } from "./styles";
+// import { useStyles } from "./styles";
+import { Link } from "react-router-dom";
+import {
+  Badge,
+  Button,
+  Card,
+  Divider,
+  Flex,
+  View,
+} from "@aws-amplify/ui-react";
+import Banner from "../Banner";
 
 type NavProps = {
   readonly username: string;
 };
 
 const Nav = ({ username }: NavProps) => {
-  const { navContainer } = useStyles();
+  // const { navContainer } = useStyles();
 
   function testAnalyticsButton() {
     Analytics.record({
@@ -19,34 +26,38 @@ const Nav = ({ username }: NavProps) => {
     });
   }
 
+  // <div className={navContainer}>
   return (
-    <Menu className={navContainer}>
-      <Menu.Item header>{`Welcome ${username}!`}</Menu.Item>
-      <Menu.Item>
-        <Link to="/">GraphQL API</Link>
-      </Menu.Item>
-      <Menu.Item>
-        <Link to="/chatbot">Chatbot</Link>
-      </Menu.Item>
-      <Menu.Item>
-        <Link to="/lambda">Lambda</Link>
-      </Menu.Item>
-      <Menu.Item>
-        <Link to="/pubsub">PubSub</Link>
-      </Menu.Item>
-      <Menu.Item>
-        <Link to="/storage">Storage</Link>
-      </Menu.Item>
-      <Menu.Item>
-        <Link to="/amplify-ui">Amplify UI</Link>
-      </Menu.Item>
-      <Menu.Item>
-        <Button onClick={testAnalyticsButton}>Test Analytics</Button>
-      </Menu.Item>
-      <Menu.Item>
-        <AmplifySignOut />
-      </Menu.Item>
-    </Menu>
+    <View position={"sticky"} top={0}>
+      <Banner />
+      <Card width={"100%"} variation={"elevated"}>
+        <Flex
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Badge variation="info">{`Welcome ${username}!`}</Badge>
+          <Divider orientation="vertical" />
+          <Flex alignItems="center" justifyContent="center">
+            <Link to="/">GraphQL API</Link>
+            <Divider orientation="vertical" />
+            <Link to="/chatbot">Chatbot</Link>
+            <Divider orientation="vertical" />
+            <Link to="/lambda">Lambda</Link>
+            <Divider orientation="vertical" />
+            <Link to="/pubsub">PubSub</Link>
+            <Divider orientation="vertical" />
+            <Link to="/storage">Storage</Link>
+            <Divider orientation="vertical" />
+            <Link to="/amplify-ui">Amplify UI</Link>
+            <Divider orientation="vertical" />
+            <Button onClick={testAnalyticsButton}>Test Analytics</Button>
+          </Flex>
+          <Divider orientation="vertical" />
+          <AmplifySignOut />
+        </Flex>
+      </Card>
+    </View>
   );
 };
 

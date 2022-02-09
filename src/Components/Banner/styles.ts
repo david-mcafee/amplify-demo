@@ -6,5 +6,8 @@ export const useStyles = createUseStyles({
     justifyContent: "center",
     alignItems: "center",
     height: "25px",
+    backgroundColor: "black",
+    color: "white",
+    // position: "fixed",
   },
 });
