@@ -1,5 +1,10 @@
 export type AmplifyDependentResourcesAttributes = {
     "api": {
+        "demorestapi": {
+            "RootUrl": "string",
+            "ApiName": "string",
+            "ApiId": "string"
+        },
         "amplifydemographqlapi": {
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"

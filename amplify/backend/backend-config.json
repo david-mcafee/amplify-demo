@@ -1,5 +1,19 @@
 {
   "api": {
+    "demorestapi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "demorestapilambda",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
+    },
     "amplifydemographqlapi": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
