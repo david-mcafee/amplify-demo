@@ -15,11 +15,12 @@ import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
 
 const TodoHome = React.lazy(() => import("./Components/Todo"));
-const Chatbot = React.lazy(() => import("./Components/Chatbot"));
+// const Chatbot = React.lazy(() => import("./Components/Chatbot"));
 const Lambda = React.lazy(() => import("./Components/Lambda"));
 const PubSub = React.lazy(() => import("./Components/PubSub"));
 const Storage = React.lazy(() => import("./Components/Storage"));
 const AmplifyUI = React.lazy(() => import("./Components/AmplifyUI"));
+const Analytics = React.lazy(() => import("./Components/Analytics"));
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -131,13 +132,13 @@ const App = () => {
                   </ErrorBoundary>
                 </React.Suspense>
               </Route>
-              <Route path="/chatbot">
+              {/* <Route path="/chatbot">
                 <React.Suspense fallback={<Loader />}>
                   <ErrorBoundary>
                     <Chatbot />
                   </ErrorBoundary>
                 </React.Suspense>
-              </Route>
+              </Route> */}
               <Route path="/lambda">
                 <React.Suspense fallback={<Loader />}>
                   <ErrorBoundary>
@@ -166,6 +167,13 @@ const App = () => {
                 <React.Suspense fallback={<Loader />}>
                   <ErrorBoundary>
                     <AmplifyUI />
+                  </ErrorBoundary>
+                </React.Suspense>
+              </Route>
+              <Route path="/analytics">
+                <React.Suspense fallback={<Loader />}>
+                  <ErrorBoundary>
+                    <Analytics />
                   </ErrorBoundary>
                 </React.Suspense>
               </Route>

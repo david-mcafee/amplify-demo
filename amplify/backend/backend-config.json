@@ -31,7 +31,12 @@
       "type": "manual"
     }
   },
-  "analytics": {},
+  "analytics": {
+    "amplifydemo2": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation"
+    }
+  },
   "interactions": {},
   "function": {
     "demorestapilambda": {

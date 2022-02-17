@@ -40,8 +40,8 @@ const Nav = ({ username }: NavProps) => {
           <Divider orientation="vertical" />
           <Flex alignItems="center" justifyContent="center">
             <Link to="/">GraphQL API</Link>
-            <Divider orientation="vertical" />
-            <Link to="/chatbot">Chatbot</Link>
+            {/* <Divider orientation="vertical" /> */}
+            {/* <Link to="/chatbot">Chatbot</Link> */}
             <Divider orientation="vertical" />
             <Link to="/lambda">Lambda</Link>
             <Divider orientation="vertical" />
@@ -51,7 +51,8 @@ const Nav = ({ username }: NavProps) => {
             <Divider orientation="vertical" />
             <Link to="/amplify-ui">Amplify UI</Link>
             <Divider orientation="vertical" />
-            <Button onClick={testAnalyticsButton}>Test Analytics</Button>
+            <Link to="/analytics">Analytics Test</Link>
+            {/* <Button onClick={testAnalyticsButton}>Test Analytics</Button> */}
           </Flex>
           <Divider orientation="vertical" />
           <AmplifySignOut />
