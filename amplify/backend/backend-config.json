@@ -31,19 +31,8 @@
       "type": "manual"
     }
   },
-  "analytics": {
-    "amplifydemo": {
-      "service": "Pinpoint",
-      "providerPlugin": "awscloudformation"
-    }
-  },
-  "interactions": {
-    "amplifydemobot": {
-      "service": "Lex",
-      "providerPlugin": "awscloudformation",
-      "build": true
-    }
-  },
+  "analytics": {},
+  "interactions": {},
   "function": {
     "demorestapilambda": {
       "build": true,

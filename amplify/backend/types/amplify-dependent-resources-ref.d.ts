@@ -16,20 +16,6 @@ export type AmplifyDependentResourcesAttributes = {
             "AppClientID": "string"
         }
     },
-    "analytics": {
-        "amplifydemo": {
-            "Region": "string",
-            "Id": "string",
-            "appName": "string"
-        }
-    },
-    "interactions": {
-        "amplifydemobot": {
-            "Region": "string",
-            "BotName": "string",
-            "FunctionArn": "string"
-        }
-    },
     "function": {
         "demorestapilambda": {
             "Name": "string",
