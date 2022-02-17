@@ -20,7 +20,7 @@ const Lambda = React.lazy(() => import("./Components/Lambda"));
 const PubSub = React.lazy(() => import("./Components/PubSub"));
 const Storage = React.lazy(() => import("./Components/Storage"));
 const AmplifyUI = React.lazy(() => import("./Components/AmplifyUI"));
-const Analytics = React.lazy(() => import("./Components/Analytics"));
+const AnalyticsComponent = React.lazy(() => import("./Components/Analytics"));
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -173,7 +173,7 @@ const App = () => {
               <Route path="/analytics">
                 <React.Suspense fallback={<Loader />}>
                   <ErrorBoundary>
-                    <Analytics />
+                    <AnalyticsComponent />
                   </ErrorBoundary>
                 </React.Suspense>
               </Route>
