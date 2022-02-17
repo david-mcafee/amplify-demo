@@ -13,7 +13,7 @@ const Viewport: React.FC<ViewportProps> = ({ children }) => {
       direction="column"
       minHeight={"100vh"}
       width={"100vw"}
-      backgroundColor={"rgb(159, 255, 128)"}
+      backgroundColor={"#F3F3F3"}
       alignItems={"center"}
       padding={"2rem"}
     >
