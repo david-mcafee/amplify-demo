@@ -56,7 +56,11 @@ const AnalyticsComponent = () => {
     <Card variation={"elevated"}>
       <Flex direction={"column"}>
         <Heading as="h1">Analytics Test</Heading>
-        <a href="https://github.com/david-mcafee/amplify-demo/blob/main/src/Components/Analytics/index.tsx">
+        <a
+          href="https://github.com/david-mcafee/amplify-demo/blob/main/src/Components/Analytics/index.tsx"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
           View source code
         </a>
         <input
