@@ -2,21 +2,35 @@ import { useState } from "react";
 import { Analytics } from "aws-amplify";
 import { Button, Card, Heading, Flex } from "@aws-amplify/ui-react";
 
+type InitialFormState = {
+  readonly attrKey: string;
+  readonly attrValue: string;
+};
+
+const initialFormState: InitialFormState = { attrKey: "", attrValue: "" };
+
 const AnalyticsComponent = () => {
-  const [formAttribute, setFormAttribute] = useState("");
+  const [formAttributes, setFormAttributes] = useState(initialFormState);
   const [updateResponses, setUpdateResponses] = useState([]);
   const [eventResponses, setEventResponses] = useState([]);
 
+  function setInput(key: string, value: string) {
+    setFormAttributes({ ...formAttributes, [key]: value });
+  }
+
   const updateEndpoint = async () => {
     try {
-      if (!formAttribute) {
+      if (!formAttributes.attrKey || !formAttributes.attrValue) {
         return;
       }
 
+      const attributesPayload: any = {};
+      attributesPayload[formAttributes.attrKey] = [formAttributes.attrValue];
+
+      console.log(attributesPayload);
+
       const result: any = await Analytics.updateEndpoint({
-        attributes: {
-          test: [formAttribute],
-        },
+        attributes: attributesPayload,
       });
 
       setUpdateResponses((prev) => [...prev, result] as any);
@@ -27,14 +41,15 @@ const AnalyticsComponent = () => {
 
   const sendEventWithCustomAttribute = async () => {
     try {
-      const result: any = await Analytics.record({
+      const attributesPayload: any = {};
+      attributesPayload[formAttributes.attrKey] = formAttributes.attrValue;
+
+      await Analytics.record({
         name: "test-event",
-        attributes: {
-          test: ["test3"],
-        },
+        attributes: attributesPayload,
       });
 
-      setEventResponses((prev) => [...prev, result] as any);
+      // setEventResponses((prev) => [...prev, result] as any);
     } catch (err) {
       console.log("Error sending event: ", err);
     }
@@ -64,9 +79,14 @@ const AnalyticsComponent = () => {
           View source code
         </a>
         <input
-          onChange={(event) => setFormAttribute(event.target.value)}
-          value={formAttribute}
-          placeholder="Attribute"
+          onChange={(event) => setInput("attrKey", event.target.value)}
+          value={formAttributes.attrKey}
+          placeholder="Attribute key"
+        />
+        <input
+          onChange={(event) => setInput("attrValue", event.target.value)}
+          value={formAttributes.attrValue}
+          placeholder="Attribute value"
         />
         <Button variation="primary" onClick={sendBasicEvent}>
           Send Basic Event
