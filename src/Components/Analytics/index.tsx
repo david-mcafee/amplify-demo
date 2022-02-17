@@ -56,22 +56,22 @@ const AnalyticsComponent = () => {
     <Card variation={"elevated"}>
       <Flex direction={"column"}>
         <Heading as="h1">Analytics Test</Heading>
+        <a href="https://github.com/david-mcafee/amplify-demo/blob/main/src/Components/Analytics/index.tsx">
+          View source code
+        </a>
         <input
           onChange={(event) => setFormAttribute(event.target.value)}
           value={formAttribute}
           placeholder="Attribute"
         />
-        {/* <Button variation="primary" onClick={firstCall}>
-          First Analytics Call
-        </Button> */}
+        <Button variation="primary" onClick={sendBasicEvent}>
+          Send Basic Event
+        </Button>
         <Button variation="primary" onClick={updateEndpoint}>
           Update Endpoint with Custom Attribute
         </Button>
         <Button variation="primary" onClick={sendEventWithCustomAttribute}>
           Send Event with Custom Attribute
-        </Button>
-        <Button variation="primary" onClick={sendBasicEvent}>
-          Send Basic Event
         </Button>
         <pre>Update Responses: {JSON.stringify(updateResponses, null, 2)}</pre>
         <pre>Event Responses: {JSON.stringify(eventResponses, null, 2)}</pre>
