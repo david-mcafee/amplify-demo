@@ -39,6 +39,16 @@ const AnalyticsComponent = () => {
     }
   };
 
+  const updateEndpointEmptyPayload = async () => {
+    try {
+      const result: any = await Analytics.updateEndpoint({});
+
+      setUpdateResponses((prev) => [...prev, result] as any);
+    } catch (err) {
+      console.log("Error updating endpoint: ", err);
+    }
+  };
+
   const sendEventWithCustomAttribute = async () => {
     try {
       const attributesPayload: any = {};
@@ -96,6 +106,9 @@ const AnalyticsComponent = () => {
         </Button>
         <Button variation="primary" onClick={sendEventWithCustomAttribute}>
           Send Event with Custom Attribute
+        </Button>
+        <Button variation="primary" onClick={updateEndpointEmptyPayload}>
+          Update Event with Empty Payload
         </Button>
         <pre>Update Responses: {JSON.stringify(updateResponses, null, 2)}</pre>
         <pre>Event Responses: {JSON.stringify(eventResponses, null, 2)}</pre>
