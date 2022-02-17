@@ -44,12 +44,12 @@ const AnalyticsComponent = () => {
       const attributesPayload: any = {};
       attributesPayload[formAttributes.attrKey] = formAttributes.attrValue;
 
-      await Analytics.record({
+      const result: any = await Analytics.record({
         name: "test-event",
         attributes: attributesPayload,
       });
 
-      // setEventResponses((prev) => [...prev, result] as any);
+      setEventResponses((prev) => [...prev, result] as any);
     } catch (err) {
       console.log("Error sending event: ", err);
     }
