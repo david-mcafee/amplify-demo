@@ -42,6 +42,11 @@ function reducer(userState: any, action: any) {
   }
 }
 
+Auth.currentCredentials().then((info) => {
+  const cognitoIdentityId = info.identityId;
+  console.log(cognitoIdentityId);
+});
+
 Analytics.autoTrack("session", {
   // REQUIRED, turn on/off the auto tracking
   enable: true,

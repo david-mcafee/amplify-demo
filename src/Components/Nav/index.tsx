@@ -1,15 +1,6 @@
-import { Analytics } from "aws-amplify";
 import { AmplifySignOut } from "@aws-amplify/ui-react/legacy";
-// import { useStyles } from "./styles";
 import { Link } from "react-router-dom";
-import {
-  Badge,
-  Button,
-  Card,
-  Divider,
-  Flex,
-  View,
-} from "@aws-amplify/ui-react";
+import { Badge, Card, Divider, Flex, View } from "@aws-amplify/ui-react";
 import Banner from "../Banner";
 
 type NavProps = {
@@ -17,16 +8,6 @@ type NavProps = {
 };
 
 const Nav = ({ username }: NavProps) => {
-  // const { navContainer } = useStyles();
-
-  function testAnalyticsButton() {
-    Analytics.record({
-      name: "test button click",
-      metrics: { clickNumber: 1 },
-    });
-  }
-
-  // <div className={navContainer}>
   return (
     <View position={"sticky"} top={0}>
       <Banner />
@@ -52,7 +33,6 @@ const Nav = ({ username }: NavProps) => {
             <Link to="/amplify-ui">Amplify UI</Link>
             <Divider orientation="vertical" />
             <Link to="/analytics">Analytics Test</Link>
-            {/* <Button onClick={testAnalyticsButton}>Test Analytics</Button> */}
           </Flex>
           <Divider orientation="vertical" />
           <AmplifySignOut />

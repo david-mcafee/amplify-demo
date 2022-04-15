@@ -70,9 +70,6 @@ const PubSubDemo = () => {
     PubSub.subscribe("myTopic1").subscribe({
       next: (data) => onMessageReceived(data),
       error: (error) => console.error("subscription error", error),
-      // TODO: docs are also incorrect here:
-      // closed: () => console.log("Done"),
-      // Should be:
       complete: () => console.log("Done"),
     });
   }, []);
@@ -104,10 +101,6 @@ const PubSubDemo = () => {
         <Heading as="h1">
           Sign-in with a second account in another browser to test the chat!
         </Heading>
-        <Heading as="h2">
-          TODO: update iot policy to fix subscription error (broken when testing
-          another bug)
-        </Heading>
         <Card>
           <TextField
             label="Message"
@@ -122,12 +115,8 @@ const PubSubDemo = () => {
         <Collection type="list" items={messages}>
           {(message, index) => (
             <Card key={index}>
-              <Heading>
-                <p>{message?.message}</p>
-              </Heading>
-              <Text>
-                <p>{message?.username}</p>
-              </Text>
+              <Heading>{message?.message}</Heading>
+              <Text>{message?.username}</Text>
             </Card>
           )}
         </Collection>
