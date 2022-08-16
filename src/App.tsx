@@ -104,7 +104,7 @@ const App = () => {
     try {
       response = await Auth.currentAuthenticatedUser();
     } catch (err) {
-      console.log("error getting current user");
+      console.log("error getting current user", err);
     } finally {
       dispatch({ type: "addUser", user: { username: response?.username } });
     }
@@ -112,7 +112,6 @@ const App = () => {
 
   useEffect(() => {
     getUser();
-    Auth.currentCredentials().then((info) => {});
   }, []);
 
   return (
