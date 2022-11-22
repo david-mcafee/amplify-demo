@@ -110,9 +110,9 @@ const StorageDemo = () => {
 
   async function fetchFiles() {
     try {
-      const result = await Storage.list("");
-      console.log(result);
-      setFiles(result);
+      const files = await Storage.list("");
+      console.log(files);
+      setFiles(files?.results);
     } catch (error) {
       console.log("error fetching files");
     }
