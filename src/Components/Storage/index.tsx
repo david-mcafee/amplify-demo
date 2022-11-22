@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from "react";
 import { Storage } from "aws-amplify";
 import Progress from "../Progress";
 import { v4 as uuidv4 } from "uuid";
-// import { useStyles } from "./styles";
 import {
   Button,
   Card,
@@ -10,7 +9,6 @@ import {
   Divider,
   Flex,
   Heading,
-  // Icon,
 } from "@aws-amplify/ui-react";
 
 type File = {
@@ -37,8 +35,6 @@ const StorageDemo = () => {
   useEffect(() => {
     fetchFiles();
   }, []);
-
-  // const { container } = useStyles();
 
   const calculatePercent = (loaded: number, total: number) =>
     Math.floor((loaded / total) * 100);
@@ -198,9 +194,6 @@ const StorageDemo = () => {
         {(file, index) => (
           <Card key={file.key ? file.key : index}>
             <Card>
-              <Button onClick={() => deleteFile(file)}>
-                {/* <Icon name="delete" color="red" /> */}
-              </Button>
               <Button onClick={() => downloadFile(file)}>Download</Button>
               <Button onClick={() => copyFile(file)}>Copy</Button>
               <Button onClick={() => deleteFile(file)}>Delete</Button>
