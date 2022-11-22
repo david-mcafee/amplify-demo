@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Amplify, { Analytics, Auth } from "aws-amplify";
+import { Analytics, Auth } from "aws-amplify";
 import { Authenticator } from "@aws-amplify/ui-react";
 import UserContext from "./UserContext";
 import Loader from "./Components/Loader";
@@ -11,15 +11,12 @@ import { AmplifyProvider } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import { theme } from "./theme";
 
-import awsExports from "./aws-exports";
-Amplify.configure(awsExports);
-
 const TodoHome = React.lazy(() => import("./Components/Todo"));
 // const Chatbot = React.lazy(() => import("./Components/Chatbot"));
-const Lambda = React.lazy(() => import("./Components/Lambda"));
+// const Lambda = React.lazy(() => import("./Components/Lambda"));
 const PubSub = React.lazy(() => import("./Components/PubSub"));
 const Storage = React.lazy(() => import("./Components/Storage"));
-const AmplifyUI = React.lazy(() => import("./Components/AmplifyUI"));
+// const AmplifyUI = React.lazy(() => import("./Components/AmplifyUI"));
 const AnalyticsComponent = React.lazy(() => import("./Components/Analytics"));
 
 // This site has 3 pages, all of which are rendered
@@ -122,13 +119,6 @@ const App = () => {
             <div>
               <Nav username={userState?.user?.username} />
               {/* <Divider orientation="horizontal" /> */}
-              {/*
-          A <Switch> looks through all its children <Route>
-          elements and renders the first one whose path
-          matches the current URL. Use a <Switch> any time
-          you have multiple routes, but you want only one
-          of them to render at a time
-        */}
               <Viewport>
                 <Switch>
                   <Route exact path="/">
@@ -145,13 +135,13 @@ const App = () => {
                   </ErrorBoundary>
                 </React.Suspense>
               </Route> */}
-                  <Route path="/lambda">
+                  {/* <Route path="/lambda">
                     <React.Suspense fallback={<Loader />}>
                       <ErrorBoundary>
                         <Lambda />
                       </ErrorBoundary>
                     </React.Suspense>
-                  </Route>
+                  </Route> */}
                   <Route path="/pubsub">
                     <React.Suspense fallback={<Loader />}>
                       <ErrorBoundary>
@@ -169,13 +159,13 @@ const App = () => {
                       </ErrorBoundary>
                     </React.Suspense>
                   </Route>
-                  <Route path="/amplify-ui">
+                  {/* <Route path="/amplify-ui">
                     <React.Suspense fallback={<Loader />}>
                       <ErrorBoundary>
                         <AmplifyUI />
                       </ErrorBoundary>
                     </React.Suspense>
-                  </Route>
+                  </Route> */}
                   <Route path="/analytics">
                     <React.Suspense fallback={<Loader />}>
                       <ErrorBoundary>

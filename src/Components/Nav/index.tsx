@@ -23,14 +23,14 @@ const Nav = ({ username }: NavProps) => {
             <Link to="/">GraphQL API</Link>
             {/* <Divider orientation="vertical" /> */}
             {/* <Link to="/chatbot">Chatbot</Link> */}
-            <Divider orientation="vertical" />
-            <Link to="/lambda">Lambda</Link>
+            {/* <Divider orientation="vertical" />
+            <Link to="/lambda">Lambda</Link> */}
             <Divider orientation="vertical" />
             <Link to="/pubsub">PubSub</Link>
             <Divider orientation="vertical" />
             <Link to="/storage">Storage</Link>
-            <Divider orientation="vertical" />
-            <Link to="/amplify-ui">Amplify UI</Link>
+            {/* <Divider orientation="vertical" />
+            <Link to="/amplify-ui">Amplify UI</Link> */}
             <Divider orientation="vertical" />
             <Link to="/analytics">Analytics Test</Link>
           </Flex>
