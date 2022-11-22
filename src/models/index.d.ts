@@ -1,34 +1,29 @@
-import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
-
-
-
-
+import { ModelInit, MutableModel } from "@aws-amplify/datastore";
+// @ts-ignore
+import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
 
 type TodoMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-type AppointmentMetaData = {
-  readOnlyFields: 'createdAt' | 'updatedAt';
-}
-
-export declare class Todo {
+type EagerTodo = {
   readonly id: string;
   readonly name: string;
-  readonly description: string;
-  readonly owner?: string;
-  readonly createdAt?: string;
-  readonly updatedAt?: string;
-  constructor(init: ModelInit<Todo, TodoMetaData>);
-  static copyOf(source: Todo, mutator: (draft: MutableModel<Todo, TodoMetaData>) => MutableModel<Todo, TodoMetaData> | void): Todo;
+  readonly description?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
 }
 
-export declare class Appointment {
+type LazyTodo = {
   readonly id: string;
   readonly name: string;
-  readonly time: string;
-  readonly createdAt?: string;
-  readonly updatedAt?: string;
-  constructor(init: ModelInit<Appointment, AppointmentMetaData>);
-  static copyOf(source: Appointment, mutator: (draft: MutableModel<Appointment, AppointmentMetaData>) => MutableModel<Appointment, AppointmentMetaData> | void): Appointment;
+  readonly description?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Todo = LazyLoading extends LazyLoadingDisabled ? EagerTodo : LazyTodo
+
+export declare const Todo: (new (init: ModelInit<Todo, TodoMetaData>) => Todo) & {
+  copyOf(source: Todo, mutator: (draft: MutableModel<Todo, TodoMetaData>) => MutableModel<Todo, TodoMetaData> | void): Todo;
 }

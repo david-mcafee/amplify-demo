@@ -11,7 +11,8 @@ import { AmplifyProvider } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import { theme } from "./theme";
 
-const TodoHome = React.lazy(() => import("./Components/Todo"));
+const Home = React.lazy(() => import("./Components/Home"));
+const DataStore = React.lazy(() => import("./Components/DataStore"));
 // const Chatbot = React.lazy(() => import("./Components/Chatbot"));
 // const Lambda = React.lazy(() => import("./Components/Lambda"));
 const PubSub = React.lazy(() => import("./Components/PubSub"));
@@ -108,14 +109,21 @@ const App = () => {
         <AmplifyProvider theme={theme}>
           <Router>
             <div>
-              <Nav signOut user />
+              <Nav signOut={signOut} user={user} />
               {/* <Divider orientation="horizontal" /> */}
               <Viewport>
                 <Switch>
                   <Route exact path="/">
                     <React.Suspense fallback={<Loader />}>
                       <ErrorBoundary>
-                        <TodoHome />
+                        <Home />
+                      </ErrorBoundary>
+                    </React.Suspense>
+                  </Route>
+                  <Route exact path="/DataStore">
+                    <React.Suspense fallback={<Loader />}>
+                      <ErrorBoundary>
+                        <DataStore />
                       </ErrorBoundary>
                     </React.Suspense>
                   </Route>

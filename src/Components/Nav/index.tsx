@@ -24,10 +24,12 @@ const Nav = ({ signOut, user }: NavProps) => {
           alignItems="center"
           justifyContent="space-between"
         >
-          <Badge variation="info">{`Welcome ${user}!`}</Badge>
+          <Badge variation="info">{`Welcome ${user?.username}!`}</Badge>
           <Divider orientation="vertical" />
           <Flex alignItems="center" justifyContent="center">
-            <Link to="/">GraphQL API</Link>
+            <Link to="/">Home</Link>
+            <Divider orientation="vertical" />
+            <Link to="/DataStore">DataStore</Link>
             {/* <Divider orientation="vertical" /> */}
             {/* <Link to="/chatbot">Chatbot</Link> */}
             {/* <Divider orientation="vertical" />

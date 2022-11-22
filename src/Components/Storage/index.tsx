@@ -167,15 +167,12 @@ const StorageDemo = () => {
     <Card variation={"elevated"} width={"75vw"}>
       <Card variation={"outlined"}>
         <Flex direction={"column"}>
-          <Heading as="h1">Lambda test</Heading>
+          <Heading as="h1">Storage test</Heading>
           <Card variation={"outlined"}>
             <Button onClick={upload}>Upload text file</Button>
-            <Button
-              // content="Choose File"
-              // labelPosition="left"
-              // icon="file"
-              onClick={() => inputRef.current.click()}
-            />
+            <Button onClick={() => inputRef.current.click()}>
+              Choose File
+            </Button>
             <input ref={inputRef} type="file" hidden onChange={uploadFile} />
           </Card>
         </Flex>
@@ -206,6 +203,7 @@ const StorageDemo = () => {
               </Button>
               <Button onClick={() => downloadFile(file)}>Download</Button>
               <Button onClick={() => copyFile(file)}>Copy</Button>
+              <Button onClick={() => deleteFile(file)}>Delete</Button>
             </Card>
             <Card>
               <Heading>
