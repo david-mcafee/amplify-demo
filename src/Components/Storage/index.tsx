@@ -64,7 +64,7 @@ const StorageDemo = () => {
   }
 
   async function uploadFile(e: any) {
-    const fileUUID = uuidv4();
+    let fileUUID = uuidv4();
     const file = e.target.files[0];
     try {
       const upload = await Storage.put(`${file.name}-${fileUUID}`, file, {
@@ -79,10 +79,12 @@ const StorageDemo = () => {
           console.error("Unexpected error while uploading", err);
           setResumableUploadButtonDisabled(true);
         },
-        completeCallback: (event: any) => {
-          console.log(`Successfully uploaded ${event.key}`);
+        completeCallback: (obj) => {
+          console.log(`Successfully uploaded ${obj.key}`);
           setResumableUploadButtonDisabled(true);
           setUploadProgress(0);
+          //@ts-ignore
+          fileUUID = obj?.key;
         },
       });
 
