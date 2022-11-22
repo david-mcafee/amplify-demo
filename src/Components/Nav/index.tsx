@@ -1,13 +1,20 @@
-import { AmplifySignOut } from "@aws-amplify/ui-react/legacy";
 import { Link } from "react-router-dom";
-import { Badge, Card, Divider, Flex, View } from "@aws-amplify/ui-react";
+import {
+  Badge,
+  Button,
+  Card,
+  Divider,
+  Flex,
+  View,
+} from "@aws-amplify/ui-react";
 import Banner from "../Banner";
 
 type NavProps = {
-  readonly username: string;
+  signOut: any;
+  user: any;
 };
 
-const Nav = ({ username }: NavProps) => {
+const Nav = ({ signOut, user }: NavProps) => {
   return (
     <View position={"sticky"} top={0}>
       <Banner />
@@ -17,7 +24,7 @@ const Nav = ({ username }: NavProps) => {
           alignItems="center"
           justifyContent="space-between"
         >
-          <Badge variation="info">{`Welcome ${username}!`}</Badge>
+          <Badge variation="info">{`Welcome ${user}!`}</Badge>
           <Divider orientation="vertical" />
           <Flex alignItems="center" justifyContent="center">
             <Link to="/">GraphQL API</Link>
@@ -35,7 +42,7 @@ const Nav = ({ username }: NavProps) => {
             <Link to="/analytics">Analytics Test</Link>
           </Flex>
           <Divider orientation="vertical" />
-          <AmplifySignOut />
+          <Button onClick={signOut}>Sign out</Button>
         </Flex>
       </Card>
     </View>

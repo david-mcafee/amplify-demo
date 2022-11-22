@@ -19,15 +19,6 @@ const Storage = React.lazy(() => import("./Components/Storage"));
 // const AmplifyUI = React.lazy(() => import("./Components/AmplifyUI"));
 const AnalyticsComponent = React.lazy(() => import("./Components/Analytics"));
 
-// This site has 3 pages, all of which are rendered
-// dynamically in the browser (not server rendered).
-//
-// Although the page does not ever refresh, notice how
-// React Router keeps the URL up to date as you navigate
-// through the site. This preserves the browser history,
-// making sure things like the back button and bookmarks
-// work properly.
-
 const initialState = { user: {} };
 
 function reducer(userState: any, action: any) {
@@ -113,11 +104,11 @@ const App = () => {
 
   return (
     <Authenticator>
-      {() => (
+      {({ signOut, user }) => (
         <AmplifyProvider theme={theme}>
           <Router>
             <div>
-              <Nav username={userState?.user?.username} />
+              <Nav signOut user />
               {/* <Divider orientation="horizontal" /> */}
               <Viewport>
                 <Switch>
