@@ -1,12 +1,13 @@
 export type AmplifyDependentResourcesAttributes = {
     "api": {
-        "amplifydemo": {
+        "smoketestingapp": {
+            "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }
     },
     "auth": {
-        "amplifydemo18fe868c": {
+        "smoketestingapp": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
@@ -17,28 +18,14 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "analytics": {
-        "amplifydemo2": {
+        "smoketestingapp": {
             "Region": "string",
             "Id": "string",
             "appName": "string"
         }
     },
-    "function": {
-        "demorestapilambda": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
-        },
-        "S3Trigger1105e06e": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
-        }
-    },
     "storage": {
-        "amplifydemostorage": {
+        "smoketestingapp": {
             "BucketName": "string",
             "Region": "string"
         }

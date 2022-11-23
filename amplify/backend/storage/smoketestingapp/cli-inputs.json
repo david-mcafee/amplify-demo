@@ -1,0 +1,18 @@
+{
+  "resourceName": "smoketestingapp",
+  "policyUUID": "df982bfa",
+  "bucketName": "smoketestingapp85f36ebad97d41f2bb3d703bd6ea2f2d",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

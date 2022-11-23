@@ -1,6 +1,6 @@
 {
   "api": {
-    "amplifydemo": {
+    "smoketestingapp": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -18,55 +18,34 @@
     }
   },
   "auth": {
-    "amplifydemo18fe868c": {
+    "smoketestingapp": {
       "service": "Cognito",
+      "serviceType": "managed",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
-      "customAuth": false
-    }
-  },
-  "hosting": {
-    "amplifyhosting": {
-      "service": "amplifyhosting",
-      "providerPlugin": "awscloudformation",
-      "type": "manual"
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "signupAttributes": [],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": []
+        },
+        "mfaTypes": [],
+        "verificationMechanisms": []
+      }
     }
   },
   "analytics": {
-    "amplifydemo2": {
+    "smoketestingapp": {
       "service": "Pinpoint",
       "providerPlugin": "awscloudformation"
     }
   },
-  "interactions": {},
-  "function": {
-    "demorestapilambda": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "S3Trigger1105e06e": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
-      "build": true,
-      "dependsOn": []
-    }
-  },
   "storage": {
-    "amplifydemostorage": {
+    "smoketestingapp": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "S3Trigger1105e06e",
-          "attributes": [
-            "Name",
-            "Arn",
-            "LambdaExecutionRole"
-          ]
-        }
-      ]
+      "dependsOn": []
     }
   }
 }

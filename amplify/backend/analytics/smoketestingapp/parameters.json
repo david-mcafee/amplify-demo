@@ -1,0 +1,21 @@
+{
+    "appName": "smoketestingapp",
+    "roleName": "pinpointLambdaRole5f8a1f4d",
+    "cloudformationPolicyName": "cloudformationPolicy5f8a1f4d",
+    "cloudWatchPolicyName": "cloudWatchPolicy5f8a1f4d",
+    "pinpointPolicyName": "pinpointPolicy5f8a1f4d",
+    "authPolicyName": "pinpoint_amplify_5f8a1f4d",
+    "unauthPolicyName": "pinpoint_amplify_5f8a1f4d",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

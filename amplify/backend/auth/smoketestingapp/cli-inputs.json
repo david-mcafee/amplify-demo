@@ -1,14 +1,16 @@
 {
-    "identityPoolName": "amplifydemo18fe868c_identitypool_18fe868c",
+  "version": "1",
+  "cognitoConfig": {
+    "identityPoolName": "smoketestingapp_identitypool_8f14639c",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "amplif18fe868c",
-    "userPoolName": "amplifydemo18fe868c_userpool_18fe868c",
+    "resourceNameTruncated": "smoket4f5198fc",
+    "userPoolName": "smoketestingapp_userpool_4f5198fc",
     "autoVerifiedAttributes": [
-        "email"
+      "email"
     ],
     "mfaConfiguration": "OFF",
     "mfaTypes": [
-        "SMS Text Message"
+      "SMS Text Message"
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
@@ -18,39 +20,38 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "email"
+      "email"
     ],
-    "aliasAttributes": [
-        "email"
-    ],
+    "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
-        "email"
+      "email"
     ],
     "userpoolClientReadAttributes": [
-        "email"
+      "email"
     ],
-    "userpoolClientLambdaRole": "amplif18fe868c_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "smoket4f5198fc_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "18fe868c",
-    "resourceName": "amplifydemo18fe868c",
     "authSelections": "identityPoolAndUserPool",
+    "resourceName": "smoketestingapp",
+    "sharedId": "8f14639c",
+    "serviceName": "Cognito",
+    "useDefault": "manual",
     "authRoleArn": {
-        "Fn::GetAtt": [
-            "AuthRole",
-            "Arn"
-        ]
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
     },
     "unauthRoleArn": {
-        "Fn::GetAtt": [
-            "UnauthRole",
-            "Arn"
-        ]
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
     },
-    "useDefault": "default",
-    "userPoolGroupList": [],
-    "serviceName": "Cognito",
-    "usernameCaseSensitive": false,
+    "breakCircularDependency": true,
+    "useEnabledMfas": true,
     "dependsOn": []
-}
+  }
+} 
