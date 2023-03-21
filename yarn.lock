@@ -202,23 +202,23 @@
     events "^3.1.0"
     tslib "^1.8.0"
 
-"@aws-amplify/ui-react-core@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react-core/-/ui-react-core-2.0.0.tgz#1d74ae311d55b3f1acfa8cb452bda5b0e27e5c04"
-  integrity sha512-R1oVNeKs+htDpfULUAQmtQBHIPVn/khjUt6bbC+LmGcYRKtlZYSwsQQ9pK/SwggnGFTyNn+qVEzNJfvwTAj/2g==
+"@aws-amplify/ui-react-core@2.1.16":
+  version "2.1.16"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react-core/-/ui-react-core-2.1.16.tgz#54506f5143992537ddd1ca3f47f8d6d08820b16b"
+  integrity sha512-iD/MmJbxAxDoqGJYP/zcGy8VQa84YhyBszEwUSQZRohshwsAjrwrh8afHt/pIkbPjO0MbYl4o61G68Mm8W9P1w==
   dependencies:
-    "@aws-amplify/ui" "5.0.0"
+    "@aws-amplify/ui" "5.5.8"
     "@xstate/react" "3.0.1"
     lodash "4.17.21"
     xstate "^4.33.6"
 
-"@aws-amplify/ui-react@^4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-4.0.1.tgz#c38cd151617ef5987a8c7360855e04ed4a10f91c"
-  integrity sha512-OBaEs/x5eZNPsi56iaGv1g0AgMJsVkYxs6apgrfHjgGJz00Nkd91WAp7jPSwOWcwaIPYRNwA3pjjOTvPJWPk8Q==
+"@aws-amplify/ui-react@unstable":
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-4.4.1.tgz#b3b98f91c34f33cd5541d068a3d79ef6c1b96a69"
+  integrity sha512-lEmxKItuYpwI936O/2ozunM/V8vTCIZl+rYpbrxRKTrai1pkCePxLfO7JpULRPnCgYg73iOc8qpc4Z/NyLY8Mg==
   dependencies:
-    "@aws-amplify/ui" "5.0.0"
-    "@aws-amplify/ui-react-core" "2.0.0"
+    "@aws-amplify/ui" "5.5.8"
+    "@aws-amplify/ui-react-core" "2.1.16"
     "@radix-ui/react-accordion" "1.0.0"
     "@radix-ui/react-direction" "1.0.0"
     "@radix-ui/react-dropdown-menu" "1.0.0"
@@ -230,21 +230,22 @@
     lodash "4.17.21"
     mapbox-gl "1.13.1"
     maplibre-gl "2.1.9"
-    maplibre-gl-js-amplify "3.0.0"
+    maplibre-gl-js-amplify "3.0.5"
     qrcode "1.5.0"
     react-generate-context "1.0.1"
     react-map-gl "7.0.15"
     tinycolor2 "1.4.2"
-    tslib "2.4.0"
+    tslib "2.4.1"
 
-"@aws-amplify/ui@5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-5.0.0.tgz#888cf0deef6f422925230937f459fd5a34530619"
-  integrity sha512-4s2J2N25o09GDXsArFEiXXIihce1hR4UCu2ZZOzX9to6vmPNKRdkZg3sgPHDNNkNrU7ahWPfj4ExtgOyGldWzw==
+"@aws-amplify/ui@5.5.8":
+  version "5.5.8"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-5.5.8.tgz#0fa2912afc1d2147e2e4321f6368d50ce1e6a619"
+  integrity sha512-8e0tiNf1F5qm1wO7nzH5XRm2qHDC16/PJf5SE77l0gzdy7NLiKeMjsjjsXx8VkYcAxRmRvsDMHZKYozmBtp7Ag==
   dependencies:
+    csstype "^3.1.1"
     lodash "4.17.21"
-    style-dictionary "3.7.0"
-    tslib "2.4.0"
+    style-dictionary "3.7.1"
+    tslib "2.4.1"
 
 "@aws-amplify/xr@4.0.4-unstable.0+3d765a379":
   version "4.0.4-unstable.0"
@@ -6552,7 +6553,7 @@ cssstyle@^2.3.0:
   dependencies:
     cssom "~0.3.6"
 
-csstype@^3.0.2:
+csstype@^3.0.2, csstype@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.1.tgz#841b532c45c758ee546a11d5bd7b7b473c8c30b9"
   integrity sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
@@ -9638,10 +9639,10 @@ maplibre-gl-draw-circle@^0.1.1:
     "@turf/helpers" "^6.1.4"
     "@turf/length" "^6.0.2"
 
-maplibre-gl-js-amplify@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/maplibre-gl-js-amplify/-/maplibre-gl-js-amplify-3.0.0.tgz#ca681fd3c876dad9215c188021808790f2d51b61"
-  integrity sha512-mqDD0cJyc/JJ6mhMrbl6VU+/YHUKxHbI+22ZkXB34taYZR2+TBIwvHrcnb/p+Z4HilVC2NgY44ldpanZiHZX/g==
+maplibre-gl-js-amplify@3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/maplibre-gl-js-amplify/-/maplibre-gl-js-amplify-3.0.5.tgz#7da977589cf3633bb753ab6f19637c0e9477ba4b"
+  integrity sha512-U5h4+mnx4zMJExAeOjLdwr070g7oy3AITBumBQUUocvXYU/UbmZT147Lp0b29GLkr9WHzxPBzf1Kb8zwChy1ww==
   dependencies:
     "@mapbox/mapbox-gl-draw" "^1.3.0"
     "@maplibre/maplibre-gl-geocoder" "^1.5.0"
@@ -12085,10 +12086,10 @@ strnum@^1.0.4:
   resolved "https://registry.yarnpkg.com/strnum/-/strnum-1.0.5.tgz#5c4e829fe15ad4ff0d20c3db5ac97b73c9b072db"
   integrity sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==
 
-style-dictionary@3.7.0:
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/style-dictionary/-/style-dictionary-3.7.0.tgz#02f4b17232cbb1142a3fdc09a17dfb08aafde3b0"
-  integrity sha512-BL4AQS5kNDBXbFHWJhlCve6+ojnHgHkiwhf2nNByU698elXWdyK5b27OprphT4q0/tJ52zB+lodhqxIxbNOajQ==
+style-dictionary@3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/style-dictionary/-/style-dictionary-3.7.1.tgz#d61c980513d7bb0a1946a9fab31491a672d0f6a2"
+  integrity sha512-yYU9Z/J8Znj9T9oJVjo8VOYamrOxv0UbBKPjhSt+PharxrhyQCM4RWb71fgEfv2pK9KO8G83/0ChDNQZ1mn0wQ==
   dependencies:
     chalk "^4.0.0"
     change-case "^4.1.2"
@@ -12434,20 +12435,15 @@ tsconfig-paths@^3.14.1:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tslib@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
-  integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
+tslib@2.4.1, tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.1.tgz#0d0bfbaac2880b91e22df0768e55be9753a5b17e"
+  integrity sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==
 
 tslib@^1.11.1, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.3:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
-
-tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.1.tgz#0d0bfbaac2880b91e22df0768e55be9753a5b17e"
-  integrity sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==
 
 tsutils@^3.21.0:
   version "3.21.0"
