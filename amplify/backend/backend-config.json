@@ -1,72 +1,122 @@
 {
+  "analytics": {
+    "amplifydemo2": {
+      "providerPlugin": "awscloudformation",
+      "service": "Pinpoint"
+    }
+  },
   "api": {
     "amplifydemo": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "output": {
         "authConfig": {
+          "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
-            "authenticationType": "API_KEY",
             "apiKeyConfig": {
               "apiKeyExpirationDays": 7
-            }
-          },
-          "additionalAuthenticationProviders": []
+            },
+            "authenticationType": "API_KEY"
+          }
         }
-      }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
     }
   },
   "auth": {
     "amplifydemo18fe868c": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
+      "customAuth": false,
       "dependsOn": [],
-      "customAuth": false
-    }
-  },
-  "hosting": {
-    "amplifyhosting": {
-      "service": "amplifyhosting",
       "providerPlugin": "awscloudformation",
-      "type": "manual"
+      "service": "Cognito"
     }
   },
-  "analytics": {
-    "amplifydemo2": {
-      "service": "Pinpoint",
-      "providerPlugin": "awscloudformation"
-    }
-  },
-  "interactions": {},
   "function": {
+    "S3Trigger1105e06e": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "demorestapilambda": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
-    },
-    "S3Trigger1105e06e": {
-      "service": "Lambda",
+    }
+  },
+  "hosting": {
+    "amplifyhosting": {
       "providerPlugin": "awscloudformation",
-      "build": true,
-      "dependsOn": []
+      "service": "amplifyhosting",
+      "type": "manual"
+    }
+  },
+  "interactions": {},
+  "parameters": {
+    "AMPLIFY_function_S3Trigger1105e06e_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger1105e06e"
+        }
+      ]
+    },
+    "AMPLIFY_function_S3Trigger1105e06e_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger1105e06e"
+        }
+      ]
+    },
+    "AMPLIFY_function_demorestapilambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "demorestapilambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_demorestapilambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "demorestapilambda"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_appId": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_type": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
     }
   },
   "storage": {
     "amplifydemostorage": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
-          "category": "function",
-          "resourceName": "S3Trigger1105e06e",
           "attributes": [
             "Name",
             "Arn",
             "LambdaExecutionRole"
-          ]
+          ],
+          "category": "function",
+          "resourceName": "S3Trigger1105e06e"
         }
-      ]
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }
